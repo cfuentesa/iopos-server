@@ -1,0 +1,86 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <b:row>
+        <b:column col-lg="8">
+        
+<h:form>
+    <h:panelGrid columns="2" cellpadding="5">
+        <h:outputText value="#{msg.productsetup_description}"/>
+        <b:inputText maxlength="20">
+        </b:inputText>
+        <h:outputText value="#{msg.productsetup_printed_description}"/>
+        <b:inputText>
+            <f:facet name="append">
+                <h:outputText value=".00" />
+            </f:facet>
+        </b:inputText>
+        
+    </h:panelGrid>
+	<b:panel title="#{msg.productsetup_pricing}" collapsible="false">
+	    <p:panelGrid columns="4" cellpadding="5" cellspacing="5">
+	    
+            <p:outputLabel for="inputPriceA" value="#{msg.productsetup_price_a} :" />
+			<p:inputNumber id="inputPriceA" decimalPlaces="2" symbol="$ " emptyValue="sign" label="sdfs" size="10"/>  
+            
+            <p:outputLabel for="inputPriceF" value="#{msg.productsetup_price_f} :" />
+			<p:inputNumber id="inputPriceF" decimalPlaces="2" symbol="$ " emptyValue="sign" label="sdfs" size="10"/>
+	        
+            <p:outputLabel for="inputPriceB" value="#{msg.productsetup_price_b} :" />
+			<p:inputNumber id="inputPriceB" decimalPlaces="2" symbol="$ " emptyValue="sign" label="sdfs" size="10"/>
+            
+            <p:outputLabel for="inputPriceG" value="#{msg.productsetup_price_g} :" />
+			<p:inputNumber id="inputPriceG" decimalPlaces="2" symbol="$ " emptyValue="sign" label="sdfs" size="10"/>
+			
+            <p:outputLabel for="inputPriceC" value="#{msg.productsetup_price_c} :" />
+			<p:inputNumber id="inputPriceC" decimalPlaces="2" symbol="$ " emptyValue="sign" label="sdfs" size="10"/>
+            
+            <p:outputLabel for="inputPriceH" value="#{msg.productsetup_price_h} :" />
+			<p:inputNumber id="inputPriceH" decimalPlaces="2" symbol="$ " emptyValue="sign" label="sdfs" size="10"/>
+			
+            <p:outputLabel for="inputPriceD" value="#{msg.productsetup_price_d} :" />
+			<p:inputNumber id="inputPriceD" decimalPlaces="2" symbol="$ " emptyValue="sign" label="sdfs" size="10"/>
+            
+            <p:outputLabel for="inputPriceI" value="#{msg.productsetup_price_i} :" />
+			<p:inputNumber id="inputPriceI" decimalPlaces="2" symbol="$ " emptyValue="sign" label="sdfs" size="10"/>
+			
+            <p:outputLabel for="inputPriceE" value="#{msg.productsetup_price_e} :" />
+			<p:inputNumber id="inputPriceE" decimalPlaces="2" symbol="$ " emptyValue="sign" label="sdfs" size="10"/>
+            
+            <p:outputLabel for="inputPriceJ" value="#{msg.productsetup_price_j} :" />
+			<p:inputNumber id="inputPriceJ" decimalPlaces="2" symbol="$ " emptyValue="sign" label="sdfs" size="10"/>
+			
+	        <p:spacer></p:spacer>
+	        <p:spacer></p:spacer>
+	        
+            <p:outputLabel for="inputPriceComplementary" value="#{msg.productsetup_price_complementary}" />
+			<p:inputNumber id="inputPriceComplementary" decimalPlaces="2" symbol="$ " emptyValue="sign" label="sdfs"  size="10"/>
+	        
+	    </p:panelGrid>
+	</b:panel>
+</h:form>
+
+        </b:column>
+        <b:column col-lg="4">
+            <b:panel look="primary" title="b:column col-lg='4'">
+                Four columns on large desktop screens. Stacked on screens smaller than 1200 pixels width.
+            </b:panel>
+        </b:column>
+    </b:row>
+    <b:row>
+        <b:column col-lg="4">
+            <b:panel look="primary" title="b:column col-lg='4'">
+                Four columns on large desktop screens. Stacked on screens smaller than 1200 pixels width.
+            </b:panel>
+        </b:column>
+        <b:column col-lg="8">
+            <b:panel look="primary" title="b:column col-lg='8'">
+                Eight columns on large desktop screens. Stacked on screens smaller than 1200 pixels width.
+            </b:panel>
+        </b:column>
+    </b:row>
+</ui:fragment>

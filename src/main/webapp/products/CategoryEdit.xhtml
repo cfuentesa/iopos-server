@@ -1,0 +1,47 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/PageTemplate.xhtml">
+		<ui:define name="pageTitle">#{msg.home_title}</ui:define>
+		<ui:define name="pageHeader">Datalogger Data</ui:define>
+		<ui:define name="content">
+
+<b:panel title="#{msg.categorysetup_category}" collapsible="false">
+	<h:form id="CompanyForm">
+		<p:growl id="growl" showDetail="true" sticky="false" />
+	    <p:panelGrid id="gridDescription" columns="3" cellpadding="5" >
+	    
+			<p:outputLabel for="description" value="#{msg.categorysetup_description}" style="text-align: right; display: block;"/>
+	        <p:inputText id="description" required="true" maxlength="20" value="#{categoryEditBean.category.description}"/>
+	        <p:message for="description" />
+	    </p:panelGrid>
+
+		<p:commandButton id="btnAdd" 
+			value="#{msg.button_add}" 
+			icon="ui-icon-plusthick" 
+			actionListener="#{categoryEditBean.actionAddCategory}"
+			style="width:150px;"
+			rendered="#{categoryEditBean.isAddCategory}"
+			validateClient="true"
+			update="gridDescription,growl"/> 
+			
+		<p:spacer height="25px"/>
+		
+		<p:commandButton id="btnEdit" 
+			value="#{msg.button_edit}" 
+			icon="ui-icon-pencil" 
+			actionListener="#{categoryEditBean.actionUpdateCategory}"
+			style="width:150px;"
+			rendered="#{!categoryEditBean.isAddCategory}"
+			update="gridDescription,growl"/>
+			
+	</h:form>
+</b:panel>
+ 		
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

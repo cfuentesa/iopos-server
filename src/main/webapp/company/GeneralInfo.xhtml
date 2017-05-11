@@ -1,0 +1,72 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/PageTemplate.xhtml">
+		<ui:define name="pageTitle">#{msg.home_title}</ui:define>
+		<ui:define name="pageHeader"></ui:define>
+		<ui:define name="content">
+
+<b:panel title="#{msg.sidebar_company_info}" collapsible="false">
+	<h:form id="CompanyForm">
+		<p:growl id="growl" showDetail="true" sticky="false" />
+	    <p:panelGrid id="gridDescription" columns="3" cellpadding="5" >
+	    
+			<p:outputLabel for="name" value="#{msg.companyinfo_name}" style="text-align: right; display: block;"/>
+	        <p:inputText id="name" required="true" maxlength="20" value="#{companyEditBean.company.name}" onblur="SetDescription()"/>
+	        <p:message for="name" />
+
+			<p:outputLabel for="contact" value="#{msg.companyinfo_contact}" style="text-align: right; display: block;"/>
+	        <p:inputText id="contact" required="true" maxlength="20" value="#{companyEditBean.company.contact}" onblur="SetDescription()"/>
+	        <p:message for="contact" />
+
+			<p:outputLabel for="telephone" value="#{msg.companyinfo_telephone}" style="text-align: right; display: block;"/>
+	        <p:inputText id="telephone" required="false" maxlength="20" value="#{companyEditBean.company.telephone}" onblur="SetDescription()"/>
+	        <p:message for="telephone" />
+
+			<p:outputLabel for="address" value="#{msg.companyinfo_address}" style="text-align: right; display: block;"/>
+	        <p:inputText id="address" required="false" maxlength="20" value="#{companyEditBean.company.address}" onblur="SetDescription()"/>
+	        <p:message for="address" />
+
+			<p:outputLabel for="city" value="#{msg.companyinfo_city}" style="text-align: right; display: block;" />
+	        <p:inputText id="city" required="false" maxlength="20" value="#{companyEditBean.company.city}" onblur="SetDescription()"/>
+	        <p:message for="city" />
+
+			<p:outputLabel for="postal" value="#{msg.companyinfo_postal}" style="text-align: right; display: block;" />
+	        <p:inputText id="postal" required="false" maxlength="20" value="#{companyEditBean.company.postal}" onblur="SetDescription()"/>
+	        <p:message for="postal" />
+
+			<p:outputLabel for="state" value="#{msg.companyinfo_state}" style="text-align: right; display: block;" />
+	        <p:inputText id="state" required="false" maxlength="20" value="#{companyEditBean.company.state}" onblur="SetDescription()"/>
+	        <p:message for="state" />
+
+			<p:outputLabel for="country" value="#{msg.companyinfo_country}" style="text-align: right; display: block;"/>
+	        <p:inputText id="country" required="false" maxlength="20" value="#{companyEditBean.company.country}" onblur="SetDescription()"/>
+	        <p:message for="country" />
+
+			<p:outputLabel for="email" value="#{msg.companyinfo_email}" style="text-align: right; display: block;" />
+	        <p:inputText id="email" required="false" maxlength="20" value="#{companyEditBean.company.email}" onblur="SetDescription()"/>
+	        <p:message for="email" />
+
+			<p:outputLabel for="web" value="#{msg.companyinfo_web}" style="text-align: right; display: block;" />
+	        <p:inputText id="web" required="true" maxlength="20" value="#{companyEditBean.company.web}" onblur="SetDescription()"/>
+	        <p:message for="web" />
+	        
+	    </p:panelGrid>
+
+		<p:commandButton id="btnSave" 
+			value="#{msg.button_save}" 
+			icon="fa fa-save" 
+			actionListener="#{companyEditBean.actionUpdateCompany}"
+			validateClient="true"
+			update="growl"/> 
+	    
+	</h:form>
+</b:panel>
+
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

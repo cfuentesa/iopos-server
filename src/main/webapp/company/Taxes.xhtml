@@ -1,0 +1,229 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/PageTemplate.xhtml">
+		<ui:define name="pageTitle">#{msg.home_title}</ui:define>
+		<ui:define name="pageHeader"></ui:define>
+		<ui:define name="content">
+		
+<b:panel title="#{msg.sidebar_company_taxes}" collapsible="false">
+	<h:form id="CompanyForm">
+		<p:growl id="growl" showDetail="true" sticky="false" />
+		
+		<b:panel title="#{msg.companyinfo_tax1}" collapsible="false" style="margin-bottom:20px">
+			<p:panelGrid id="gridTax1" columns="11" cellpadding="5" >
+	    	    
+				<p:outputLabel for="tax1_desc" value="#{msg.companyinfo_tax_description}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax1_desc" required="false" maxlength="20" value="#{companyEditBean.company.tax1Description}"/>
+	
+				<p:outputLabel for="tax1_value" value="#{msg.companyinfo_tax_value}" style="text-align: right; display: block;"/>
+				<p:inputNumber id="tax1_value" value="#{companyEditBean.company.tax1Value}" required="false" decimalPlaces="2" symbol="% " emptyValue="sign" size="4" symbolPosition="s">
+					<f:validateDoubleRange minimum="0.00" maximum="99.99" />
+				</p:inputNumber>
+				
+				<p:outputLabel for="tax1_code" value="#{msg.companyinfo_tax_code}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax1_code" required="false" maxlength="20" value="#{companyEditBean.company.tax1Code}"/>
+		        
+				<p:outputLabel for="tax1_gratuity" value="#{msg.companyinfo_tax_gratuity}" style="text-align: right; display: block;"/>
+	        	<p:selectBooleanCheckbox id="tax1_gratuity" value="#{companyEditBean.company.tax1Gratuity}" />
+
+			</p:panelGrid>
+		</b:panel>
+		
+		<b:panel title="#{msg.companyinfo_tax2}" collapsible="false" style="margin-bottom:20px">
+			<p:panelGrid id="gridTax2" columns="11" cellpadding="5" >
+	    	    
+				<p:outputLabel for="tax2_desc" value="#{msg.companyinfo_tax_description}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax2_desc" required="false" maxlength="20" value="#{companyEditBean.company.tax2Description}"/>
+	
+				<p:outputLabel for="tax2_value" value="#{msg.companyinfo_tax_value}" style="text-align: right; display: block;"/>
+				<p:inputNumber id="tax2_value" value="#{companyEditBean.company.tax2Value}" required="false" decimalPlaces="2" symbol="% " emptyValue="sign" size="4" symbolPosition="s">
+					<f:validateDoubleRange minimum="0.00" maximum="99.99" />
+				</p:inputNumber>
+	
+				<p:outputLabel for="tax2_code" value="#{msg.companyinfo_tax_code}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax2_code" required="false" maxlength="20" value="#{companyEditBean.company.tax2Code}"/>
+		        
+				<p:outputLabel for="tax2_gratuity" value="#{msg.companyinfo_tax_gratuity}" style="text-align: right; display: block;"/>
+	        	<p:selectBooleanCheckbox id="tax2_gratuity" value="#{companyEditBean.company.tax2Gratuity}" />
+
+			</p:panelGrid>
+		</b:panel>
+		
+		<b:panel title="#{msg.companyinfo_tax3}" collapsible="false" style="margin-bottom:20px">
+			<p:panelGrid id="gridTax3" columns="11" cellpadding="5" >
+	    	    
+				<p:outputLabel for="tax3_desc" value="#{msg.companyinfo_tax_description}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax3_desc" required="false" maxlength="20" value="#{companyEditBean.company.tax3Description}"/>
+	
+				<p:outputLabel for="tax3_value" value="#{msg.companyinfo_tax_value}" style="text-align: right; display: block;"/>
+				<p:inputNumber id="tax3_value" value="#{companyEditBean.company.tax3Value}" required="false" decimalPlaces="2" symbol="% " emptyValue="sign" size="4" symbolPosition="s">
+					<f:validateDoubleRange minimum="0.00" maximum="99.99" />
+				</p:inputNumber>
+	
+				<p:outputLabel for="tax3_code" value="#{msg.companyinfo_tax_code}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax3_code" required="false" maxlength="20" value="#{companyEditBean.company.tax3Code}"/>
+		        
+				<p:outputLabel for="tax3_gratuity" value="#{msg.companyinfo_tax_gratuity}" style="text-align: right; display: block;"/>
+	        	<p:selectBooleanCheckbox id="tax3_gratuity" value="#{companyEditBean.company.tax3Gratuity}" />
+
+			</p:panelGrid>
+		</b:panel>
+		
+		<b:panel title="#{msg.companyinfo_tax4}" collapsible="false" style="margin-bottom:20px">
+			<p:panelGrid id="gridTax4" columns="11" cellpadding="5" >
+	    	    
+				<p:outputLabel for="tax4_desc" value="#{msg.companyinfo_tax_description}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax4_desc" required="false" maxlength="20" value="#{companyEditBean.company.tax4Description}"/>
+	
+				<p:outputLabel for="tax4_value" value="#{msg.companyinfo_tax_value}" style="text-align: right; display: block;"/>
+				<p:inputNumber id="tax4_value" value="#{companyEditBean.company.tax4Value}" required="false" decimalPlaces="2" symbol="% " emptyValue="sign" size="4" symbolPosition="s">
+					<f:validateDoubleRange minimum="0.00" maximum="99.99" />
+				</p:inputNumber>
+	
+				<p:outputLabel for="tax4_code" value="#{msg.companyinfo_tax_code}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax4_code" required="false" maxlength="20" value="#{companyEditBean.company.tax4Code}"/>
+		        
+				<p:outputLabel for="tax4_gratuity" value="#{msg.companyinfo_tax_gratuity}" style="text-align: right; display: block;"/>
+	        	<p:selectBooleanCheckbox id="tax4_gratuity" value="#{companyEditBean.company.tax4Gratuity}" />
+
+			</p:panelGrid>
+		</b:panel>
+		
+		<b:panel title="#{msg.companyinfo_tax5}" collapsible="false" style="margin-bottom:20px">
+			<p:panelGrid id="gridTax5" columns="11" cellpadding="5" >
+	    	    
+				<p:outputLabel for="tax5_desc" value="#{msg.companyinfo_tax_description}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax5_desc" required="false" maxlength="20" value="#{companyEditBean.company.tax5Description}" />
+	
+				<p:outputLabel for="tax5_value" value="#{msg.companyinfo_tax_value}" style="text-align: right; display: block;"/>
+				<p:inputNumber id="tax5_value" value="#{companyEditBean.company.tax5Value}" required="false" decimalPlaces="2" symbol="% " emptyValue="sign" size="4" symbolPosition="s">
+					<f:validateDoubleRange minimum="0.00" maximum="99.99" />
+				</p:inputNumber>
+	
+				<p:outputLabel for="tax5_code" value="#{msg.companyinfo_tax_code}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax5_code" required="false" maxlength="20" value="#{companyEditBean.company.tax5Code}"/>
+		        
+				<p:outputLabel for="tax5_gratuity" value="#{msg.companyinfo_tax_gratuity}" style="text-align: right; display: block;"/>
+	        	<p:selectBooleanCheckbox id="tax5_gratuity" value="#{companyEditBean.company.tax5Gratuity}" />
+
+			</p:panelGrid>
+		</b:panel>
+		
+		<b:panel title="#{msg.companyinfo_tax6}" collapsible="false" style="margin-bottom:20px">
+			<p:panelGrid id="gridTax6" columns="11" cellpadding="5" >
+	    	    
+				<p:outputLabel for="tax6_desc" value="#{msg.companyinfo_tax_description}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax6_desc" required="false" maxlength="20" value="#{companyEditBean.company.tax6Description}" />
+	
+				<p:outputLabel for="tax6_value" value="#{msg.companyinfo_tax_value}" style="text-align: right; display: block;"/>
+				<p:inputNumber id="tax6_value" value="#{companyEditBean.company.tax6Value}" required="false" decimalPlaces="2" symbol="% " emptyValue="sign" size="4" symbolPosition="s">
+					<f:validateDoubleRange minimum="0.00" maximum="99.99" />
+				</p:inputNumber>
+	
+				<p:outputLabel for="tax6_code" value="#{msg.companyinfo_tax_code}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax6_code" required="false" maxlength="20" value="#{companyEditBean.company.tax6Code}"/>
+		        
+				<p:outputLabel for="tax6_gratuity" value="#{msg.companyinfo_tax_gratuity}" style="text-align: right; display: block;"/>
+	        	<p:selectBooleanCheckbox id="tax6_gratuity" value="#{companyEditBean.company.tax6Gratuity}" />
+
+			</p:panelGrid>
+		</b:panel>
+		
+		<b:panel title="#{msg.companyinfo_tax7}" collapsible="false" style="margin-bottom:20px">
+			<p:panelGrid id="gridTax7" columns="11" cellpadding="5" >
+	    	    
+				<p:outputLabel for="tax7_desc" value="#{msg.companyinfo_tax_description}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax7_desc" required="false" maxlength="20" value="#{companyEditBean.company.tax7Description}" />
+	
+				<p:outputLabel for="tax7_value" value="#{msg.companyinfo_tax_value}" style="text-align: right; display: block;"/>
+				<p:inputNumber id="tax7_value" value="#{companyEditBean.company.tax7Value}" required="false" decimalPlaces="2" symbol="% " emptyValue="sign" size="4" symbolPosition="s">
+					<f:validateDoubleRange minimum="0.00" maximum="99.99" />
+				</p:inputNumber>
+	
+				<p:outputLabel for="tax7_code" value="#{msg.companyinfo_tax_code}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax7_code" required="false" maxlength="20" value="#{companyEditBean.company.tax7Code}"/>
+		        
+				<p:outputLabel for="tax7_gratuity" value="#{msg.companyinfo_tax_gratuity}" style="text-align: right; display: block;"/>
+	        	<p:selectBooleanCheckbox id="tax7_gratuity" value="#{companyEditBean.company.tax7Gratuity}" />
+
+			</p:panelGrid>
+		</b:panel>
+		
+		<b:panel title="#{msg.companyinfo_tax8}" collapsible="false" style="margin-bottom:20px">
+			<p:panelGrid id="gridTax8" columns="11" cellpadding="5" >
+	    	    
+				<p:outputLabel for="tax8_desc" value="#{msg.companyinfo_tax_description}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax8_desc" required="false" maxlength="20" value="#{companyEditBean.company.tax8Description}" />
+	
+				<p:outputLabel for="tax8_value" value="#{msg.companyinfo_tax_value}" style="text-align: right; display: block;"/>
+				<p:inputNumber id="tax8_value" value="#{companyEditBean.company.tax8Value}" required="false" decimalPlaces="2" symbol="% " emptyValue="sign" size="4" symbolPosition="s">
+					<f:validateDoubleRange minimum="0.00" maximum="99.99" />
+				</p:inputNumber>
+	
+				<p:outputLabel for="tax8_code" value="#{msg.companyinfo_tax_code}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax8_code" required="false" maxlength="20" value="#{companyEditBean.company.tax8Code}"/>
+		        
+				<p:outputLabel for="tax8_gratuity" value="#{msg.companyinfo_tax_gratuity}" style="text-align: right; display: block;"/>
+	        	<p:selectBooleanCheckbox id="tax8_gratuity" value="#{companyEditBean.company.tax8Gratuity}" />
+
+			</p:panelGrid>
+		</b:panel>
+		
+		<b:panel title="#{msg.companyinfo_tax9}" collapsible="false" style="margin-bottom:20px">
+			<p:panelGrid id="gridTax9" columns="11" cellpadding="5" >
+	    	    
+				<p:outputLabel for="tax9_desc" value="#{msg.companyinfo_tax_description}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax9_desc" required="false" maxlength="20" value="#{companyEditBean.company.tax9Description}" />
+	
+				<p:outputLabel for="tax9_value" value="#{msg.companyinfo_tax_value}" style="text-align: right; display: block;"/>
+				<p:inputNumber id="tax9_value" value="#{companyEditBean.company.tax9Value}" required="false" decimalPlaces="2" symbol="% " emptyValue="sign" size="4" symbolPosition="s">
+					<f:validateDoubleRange minimum="0.00" maximum="99.99" />
+				</p:inputNumber>
+	
+				<p:outputLabel for="tax9_code" value="#{msg.companyinfo_tax_code}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax9_code" required="false" maxlength="20" value="#{companyEditBean.company.tax9Code}"/>
+		        
+				<p:outputLabel for="tax9_gratuity" value="#{msg.companyinfo_tax_gratuity}" style="text-align: right; display: block;"/>
+	        	<p:selectBooleanCheckbox id="tax9_gratuity" value="#{companyEditBean.company.tax9Gratuity}" />
+
+			</p:panelGrid>
+		</b:panel>
+		
+		<b:panel title="#{msg.companyinfo_tax10}" collapsible="false" style="margin-bottom:20px">
+			<p:panelGrid id="gridTax10" columns="11" cellpadding="5" >
+	    	    
+				<p:outputLabel for="tax10_desc" value="#{msg.companyinfo_tax_description}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax10_desc" required="false" maxlength="20" value="#{companyEditBean.company.tax10Description}" />
+	
+				<p:outputLabel for="tax10_value" value="#{msg.companyinfo_tax_value}" style="text-align: right; display: block;"/>
+				<p:inputNumber id="tax10_value" value="#{companyEditBean.company.tax10Value}" required="false" decimalPlaces="2" symbol="% " emptyValue="sign" size="4" symbolPosition="s">
+					<f:validateDoubleRange minimum="0.00" maximum="99.99" />
+				</p:inputNumber>
+	
+				<p:outputLabel for="tax10_code" value="#{msg.companyinfo_tax_code}" style="text-align: right; display: block;"/>
+		        <p:inputText id="tax10_code" required="false" maxlength="20" value="#{companyEditBean.company.tax10Code}"/>
+		        
+				<p:outputLabel for="tax10_gratuity" value="#{msg.companyinfo_tax_gratuity}" style="text-align: right; display: block;"/>
+	        	<p:selectBooleanCheckbox id="tax10_gratuity" value="#{companyEditBean.company.tax10Gratuity}" />
+
+			</p:panelGrid>
+		</b:panel>
+
+		<p:commandButton id="btnSave" 
+			value="#{msg.button_save}" 
+			icon="fa fa-save" 
+			actionListener="#{companyEditBean.actionUpdateCompanyTaxs}"
+			validateClient="true"
+			update="growl"/> 
+	    
+	</h:form>
+</b:panel>
+
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

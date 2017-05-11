@@ -1,0 +1,73 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/PageTemplate.xhtml">
+		<ui:define name="pageTitle">#{msg.home_title}</ui:define>
+		<ui:define name="pageHeader"></ui:define>
+		<ui:define name="content">
+
+<b:panel title="#{msg.sidebar_company_presetpayments}" collapsible="false">
+	<h:form id="CompanyForm">
+		<p:growl id="growl" showDetail="true" sticky="false" />
+		
+		<p:panelGrid id="gridPresetPayments" columns="2" cellpadding="5" >
+    	    
+			<p:outputLabel for="preset_payment1" value="#{msg.companyinfo_preset_payment1}" style="text-align: right; display: block;"/>
+			<p:inputNumber id="preset_payment1" value="#{companyEditBean.company.presetPayment1}" required="false" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10" symbolPosition="p" maxlength="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+
+			<p:outputLabel for="preset_payment2" value="#{msg.companyinfo_preset_payment2}" style="text-align: right; display: block;"/>
+			<p:inputNumber id="preset_payment2" value="#{companyEditBean.company.presetPayment2}" required="false" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10" symbolPosition="p" maxlength="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+
+			<p:outputLabel for="preset_payment3" value="#{msg.companyinfo_preset_payment3}" style="text-align: right; display: block;"/>
+			<p:inputNumber id="preset_payment3" value="#{companyEditBean.company.presetPayment3}" required="false" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10" symbolPosition="p" maxlength="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+
+			<p:outputLabel for="preset_payment4" value="#{msg.companyinfo_preset_payment4}" style="text-align: right; display: block;"/>
+			<p:inputNumber id="preset_payment4" value="#{companyEditBean.company.presetPayment4}" required="false" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10" symbolPosition="p" maxlength="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+
+			<p:outputLabel for="preset_payment5" value="#{msg.companyinfo_preset_payment5}" style="text-align: right; display: block;"/>
+			<p:inputNumber id="preset_payment5" value="#{companyEditBean.company.presetPayment5}" required="false" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10" symbolPosition="p" maxlength="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+
+			<p:outputLabel for="preset_payment6" value="#{msg.companyinfo_preset_payment6}" style="text-align: right; display: block;"/>
+			<p:inputNumber id="preset_payment6" value="#{companyEditBean.company.presetPayment6}" required="false" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10" symbolPosition="p" maxlength="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+
+			<p:outputLabel for="preset_payment7" value="#{msg.companyinfo_preset_payment7}" style="text-align: right; display: block;"/>
+			<p:inputNumber id="preset_payment7" value="#{companyEditBean.company.presetPayment7}" required="false" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10" symbolPosition="p" maxlength="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+
+			<p:outputLabel for="preset_payment8" value="#{msg.companyinfo_preset_payment8}" style="text-align: right; display: block;"/>
+			<p:inputNumber id="preset_payment8" value="#{companyEditBean.company.presetPayment8}" required="false" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10" symbolPosition="p" maxlength="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+
+		</p:panelGrid>
+
+		<p:commandButton id="btnSave" 
+			value="#{msg.button_save}" 
+			icon="fa fa-save" 
+			actionListener="#{companyEditBean.actionUpdateCompanyTaxs}"
+			validateClient="true"
+			update="growl"/> 
+
+	</h:form>
+</b:panel>
+
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

@@ -1,0 +1,37 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/PageTemplate.xhtml">
+		<ui:define name="pageTitle">#{msg.home_title}</ui:define>
+		<ui:define name="pageHeader">Datalogger Data</ui:define>
+		<ui:define name="content">
+		
+<h:form id="CategoryForm">
+    <p:growl id="msgs" showDetail="true" />
+ 	<b:button value="#{msg.categorysetup_add_category}" look="primary" outcome="actionCategoryEdit"/>
+    <p:dataTable id="categoryList" var="category" value="#{categoryListBean.categories}"
+    				selection="#{categoryListBean.categorySelected}" 
+			selectionMode="single"
+			rowKey="#{category.id}" 
+    	>
+        <f:facet name="header">
+            #{msg.categorysetup_list}
+        </f:facet>
+        <p:column headerText="#{msg.productsetup_category}">
+            <h:outputText value="#{category.description}" />
+        </p:column>
+        <p:column style="width:70px;text-align: center">
+             <p:commandButton icon="ui-icon-search" title="View" action="#{categoryListBean.actionEditCategory}">
+                <f:setPropertyActionListener value="#{category}" target="#{categoryListBean.categorySelected}"/>
+            </p:commandButton>
+        </p:column>
+    </p:dataTable>
+
+</h:form>
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

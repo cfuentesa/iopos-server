@@ -1,0 +1,49 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/PageTemplate.xhtml">
+	<ui:define name="pageTitle">#{msg.home_title}</ui:define>
+	<ui:define name="pageHeader">Datalogger Data</ui:define>
+	<ui:define name="content">
+	<h:form id="form">
+    <p:growl id="msgs" showDetail="true" />
+ 
+ 	<b:button value="#{msg.productsetup_add_product}" look="primary" outcome="actionProductEdit"/>
+ 	
+    <p:dataTable id="productList" var="product" value="#{productListBean.products}"
+    				selection="#{productListBean.productSelected}" 
+			selectionMode="single"
+			rowKey="#{product.id}" 
+    	>
+        <f:facet name="header">
+            #{msg.productsetup_list}
+        </f:facet>
+        <p:column headerText="#{msg.productsetup_category}">
+            <h:outputText value="#{product.categoryDescription}" />
+        </p:column>
+        <p:column headerText="Id" visible="false">
+            <h:outputText value="#{product.id}" />
+        </p:column>
+        <p:column headerText="#{msg.productsetup_description}">
+            <h:outputText value="#{product.description}" />
+        </p:column>
+        <p:column headerText="#{msg.productsetup_price_a}" style="width:150px;text-align: right">
+            <h:outputText value="#{product.priceA}" />
+        </p:column>
+        <p:column headerText="#{msg.productsetup_price_b}" style="width:150px;text-align: center">
+            <h:outputText value="#{product.priceB}" />
+        </p:column>
+        <p:column style="width:70px;text-align: center">
+             <p:commandButton icon="ui-icon-search" title="View" action="#{productListBean.actionProduct}">
+                <f:setPropertyActionListener value="#{product}" target="#{productListBean.productSelected}"/>
+            </p:commandButton>
+        </p:column>
+    </p:dataTable>
+    </h:form>
+	</ui:define>
+</ui:composition>
+</ui:fragment>

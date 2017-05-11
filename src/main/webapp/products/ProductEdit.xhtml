@@ -1,0 +1,221 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/PageTemplate.xhtml">
+	<ui:define name="pageTitle">#{msg.home_title}</ui:define>
+	<ui:define name="pageHeader"></ui:define>
+	<ui:define name="content">
+
+<script>
+function SetPrices(){
+	var priceAH = $(PrimeFaces.escapeClientId('ProductForm:inputPriceA_hinput'));
+	var priceBH = $(PrimeFaces.escapeClientId('ProductForm:inputPriceB_hinput'));
+	var priceCH = $(PrimeFaces.escapeClientId('ProductForm:inputPriceC_hinput'));
+	var priceDH = $(PrimeFaces.escapeClientId('ProductForm:inputPriceD_hinput'));
+	var priceEH = $(PrimeFaces.escapeClientId('ProductForm:inputPriceE_hinput'));
+	var priceFH = $(PrimeFaces.escapeClientId('ProductForm:inputPriceF_hinput'));
+	var priceGH = $(PrimeFaces.escapeClientId('ProductForm:inputPriceG_hinput'));
+	var priceHH = $(PrimeFaces.escapeClientId('ProductForm:inputPriceH_hinput'));
+	var priceIH = $(PrimeFaces.escapeClientId('ProductForm:inputPriceI_hinput'));
+	var priceJH = $(PrimeFaces.escapeClientId('ProductForm:inputPriceJ_hinput'));
+	
+	var priceA = $(PrimeFaces.escapeClientId('ProductForm:inputPriceA_input'));
+	var priceB = $(PrimeFaces.escapeClientId('ProductForm:inputPriceB_input'));
+	var priceC = $(PrimeFaces.escapeClientId('ProductForm:inputPriceC_input'));
+	var priceD = $(PrimeFaces.escapeClientId('ProductForm:inputPriceD_input'));
+	var priceE = $(PrimeFaces.escapeClientId('ProductForm:inputPriceE_input'));
+	var priceF = $(PrimeFaces.escapeClientId('ProductForm:inputPriceF_input'));
+	var priceG = $(PrimeFaces.escapeClientId('ProductForm:inputPriceG_input'));
+	var priceH = $(PrimeFaces.escapeClientId('ProductForm:inputPriceH_input'));
+	var priceI = $(PrimeFaces.escapeClientId('ProductForm:inputPriceI_input'));
+	var priceJ = $(PrimeFaces.escapeClientId('ProductForm:inputPriceJ_input'));
+
+	if (priceAH.val() != '') {
+		if (priceBH.val() == '') {
+			priceBH.val(priceAH.val());
+			priceB.val(priceA.val());
+		}
+
+		if (priceCH.val() == '') {
+			priceCH.val(priceAH.val());
+			priceC.val(priceA.val());
+		}
+
+		if (priceDH.val() == '') {
+			priceDH.val(priceAH.val());
+			priceD.val(priceA.val());
+		}
+
+		if (priceEH.val() == '') {
+			priceEH.val(priceAH.val());
+			priceE.val(priceA.val());
+		}
+
+		if (priceFH.val() == '') {
+			priceFH.val(priceAH.val());
+			priceF.val(priceA.val());
+		}
+
+		if (priceGH.val() == '') {
+			priceGH.val(priceAH.val());
+			priceG.val(priceA.val());
+		}
+
+		if (priceHH.val() == '') {
+			priceHH.val(priceAH.val());
+			priceH.val(priceA.val());
+		}
+
+		if (priceIH.val() == '') {
+			priceIH.val(priceAH.val());
+			priceI.val(priceA.val());
+		}
+
+		if (priceJH.val() == '') {
+			priceJH.val(priceAH.val());
+			priceJ.val(priceA.val());
+		}
+	}
+}
+
+function SetDescription() {
+	var description = $(PrimeFaces.escapeClientId('ProductForm:description'));
+	var printedDescription = $(PrimeFaces.escapeClientId('ProductForm:printedDescription'));
+	if (printedDescription.val() == '') {
+		printedDescription.val(description.val());
+	}
+}
+</script>
+<b:panel title="Product Setup">
+<h:form id="ProductForm">
+	<p:growl id="growl" showDetail="true" sticky="false" />
+    <p:panelGrid id="gridDescription" columns="3" cellpadding="5">
+    
+		<p:outputLabel for="description" value="#{msg.productsetup_description} :" />
+        <p:inputText id="description" required="true" maxlength="20" value="#{productEditBean.product.description}" onblur="SetDescription()"/>
+        <p:message for="description" />
+
+		<p:outputLabel for="printedDescription" value="#{msg.productsetup_printed_description} :" />
+        <p:inputText id="printedDescription" required="true" maxlength="20" value="#{productEditBean.product.printedDescription}"/>
+        <p:message for="printedDescription" />
+
+		<p:outputLabel for="category" value="#{msg.productsetup_category} :" />
+		<p:selectOneMenu id="category" value="#{productEditBean.product.categoryId}" required="true">
+            <f:selectItem itemLabel="Select One" itemValue="#{null}" />
+			<f:selectItems value="#{productEditBean.siCategories}" />
+        </p:selectOneMenu>
+        <p:message for="category" />
+        
+		<p:outputLabel for="isActive" value="#{msg.productsetup_enable} :" />
+        <p:selectBooleanButton id="isActive" value="#{productEditBean.product.enable}" onLabel="#{msg.button_yes}" offLabel="#{msg.button_no}" style="width:60px" />
+                
+    </p:panelGrid>
+    
+    <br/>
+    
+	<p:fieldset legend="#{msg.productsetup_pricing}" style="margin-bottom:20px">
+	    <p:panelGrid id="gridPrices" columns="6" cellpadding="5" cellspacing="5">
+	    
+            <p:outputLabel for="inputPriceA" value="#{msg.productsetup_price_a} :" />
+			<p:inputNumber id="inputPriceA" value="#{productEditBean.product.priceA}" required="true" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10" onblur="SetPrices()">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+			<p:message for="inputPriceA" />  
+            
+            <p:outputLabel for="inputPriceF" value="#{msg.productsetup_price_f} :" />
+			<p:inputNumber id="inputPriceF" value="#{productEditBean.product.priceF}" required="true" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+			<p:message for="inputPriceF" />  
+			
+	        
+            <p:outputLabel for="inputPriceB" value="#{msg.productsetup_price_b} :" />
+			<p:inputNumber id="inputPriceB" value="#{productEditBean.product.priceB}" required="true" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10" widgetVar="inputPriceB">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+			<p:message for="inputPriceB" />  
+            
+            <p:outputLabel for="inputPriceG" value="#{msg.productsetup_price_g} :" />
+			<p:inputNumber id="inputPriceG" value="#{productEditBean.product.priceG}" required="true" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+			<p:message for="inputPriceG" />  
+			
+            <p:outputLabel for="inputPriceC" value="#{msg.productsetup_price_c} :" />
+			<p:inputNumber id="inputPriceC" value="#{productEditBean.product.priceC}" required="true" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+			<p:message for="inputPriceC" />
+            
+            <p:outputLabel for="inputPriceH" value="#{msg.productsetup_price_h} :" />
+			<p:inputNumber id="inputPriceH" value="#{productEditBean.product.priceH}" required="true" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+			<p:message for="inputPriceH" />
+			
+            <p:outputLabel for="inputPriceD" value="#{msg.productsetup_price_d} :" />
+			<p:inputNumber id="inputPriceD" value="#{productEditBean.product.priceD}" required="true" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+			<p:message for="inputPriceD" />
+            
+            <p:outputLabel for="inputPriceI" value="#{msg.productsetup_price_i} :" />
+			<p:inputNumber id="inputPriceI" value="#{productEditBean.product.priceI}" required="true" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+			<p:message for="inputPriceI" />
+			
+            <p:outputLabel for="inputPriceE" value="#{msg.productsetup_price_e} :" />
+			<p:inputNumber id="inputPriceE"  value="#{productEditBean.product.priceE}" required="true" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+			<p:message for="inputPriceE" />
+            
+            <p:outputLabel for="inputPriceJ" value="#{msg.productsetup_price_j} :" />
+			<p:inputNumber id="inputPriceJ" value="#{productEditBean.product.priceJ}" required="true" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+			<p:message for="inputPriceJ" />
+			
+	        <p:spacer></p:spacer>
+	        <p:spacer></p:spacer>
+	        <p:spacer></p:spacer>
+	        
+            <p:outputLabel for="inputPriceComplementary" value="#{msg.productsetup_price_complementary}" />
+			<p:inputNumber id="inputPriceComplementary" decimalPlaces="2" symbol="$ " emptyValue="sign" size="10">
+				<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+			</p:inputNumber>
+			<p:message for="inputPriceComplementary" />
+	        
+	    </p:panelGrid>
+    </p:fieldset>
+    
+	<p:commandButton id="btnAdd" 
+		value="#{msg.button_add}" 
+		icon="ui-icon-plusthick" 
+		actionListener="#{productEditBean.actionAddProduct}"
+		style="width:150px;"
+		rendered="#{productEditBean.isAddProduct}"
+		validateClient="true"
+		update="gridPrices,gridDescription,growl"/> 
+		
+	<p:spacer height="25px"/>
+	
+	<p:commandButton id="btnEdit" 
+		value="#{msg.button_edit}" 
+		icon="ui-icon-pencil" 
+		actionListener="#{productEditBean.actionUpdateProduct}"
+		style="width:150px;"
+		rendered="#{!productEditBean.isAddProduct}"
+		update="gridPrices,gridDescription,growl"/>
+
+</h:form>
+</b:panel>
+
+	</ui:define>
+</ui:composition>
+</ui:fragment>
