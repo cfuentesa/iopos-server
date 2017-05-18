@@ -8,9 +8,11 @@ import org.springframework.stereotype.Component;
 
 import cl.iopos.server.core.dto.CategoryDTO;
 import cl.iopos.server.core.dto.CompanyDTO;
+import cl.iopos.server.core.dto.EmployeeDTO;
 import cl.iopos.server.core.dto.ProductDTO;
 import cl.iopos.server.core.entity.Category;
 import cl.iopos.server.core.entity.Company;
+import cl.iopos.server.core.entity.Employee;
 import cl.iopos.server.core.entity.Product;
 import cl.iopos.server.core.exception.ServiceException;
 import cl.iopos.server.core.repository.CategoryRepository;
@@ -63,6 +65,50 @@ public class ProductService {
 
 	public void setEmployeeRepository(EmployeeRepository employeeRepository) {
 		this.employeeRepository = employeeRepository;
+	}
+	
+	public List<EmployeeDTO> employeeFindByCompany(Integer companyId) 
+	{
+		List<EmployeeDTO> out = new ArrayList<EmployeeDTO>();
+		try {
+			List<Employee> result = this.employeeRepository.findByCompanyId(companyId);
+			for(Employee employee : result) {
+				EmployeeDTO dto = new EmployeeDTO();
+				dto.setFirstName(employee.getFirstName());
+				dto.setAddress(employee.getAddress());
+				out.add(dto);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return out;
+	}
+	
+	public EmployeeDTO employeeFindById(Integer employeeId) throws ServiceException 
+	{
+		EmployeeDTO dto = new EmployeeDTO();
+		
+		try {
+			Employee employee = this.employeeRepository.findOne(employeeId);
+			if (employee != null) {
+				dto.setAddress(employee.getAddress());
+				dto.setBirthDate(employee.getBirthDate());
+				dto.setCity(employee.getCity());
+				dto.setCompanyId(employee.getCompanyId());
+				dto.setCountry(employee.getCountry());
+				dto.setEmail(employee.getEmail());
+				dto.setFirstName(employee.getFirstName());
+				dto.setId(employee.getId());
+				dto.setNickName(employee.getNickName());
+				dto.setPostal(employee.getPostal());
+				dto.setState(employee.getState());
+				
+			}
+		} catch (Exception e) {
+			throw new ServiceException("Error en employeeFindById");
+		}
+		
+		return dto;
 	}
 
 	public List<CategoryDTO> categoryFindAll() throws ServiceException 
@@ -357,6 +403,29 @@ public class ProductService {
 		return dto;
 	}
 	
+	public EmployeeDTO createEmployee(EmployeeDTO dto) throws ServiceException
+	{
+		try {
+			Employee employee = new Employee();
+			employee.setAddress(dto.getAddress());
+			employee.setBirthDate(dto.getBirthDate());
+			employee.setCity(dto.getCity());
+			employee.setCompanyId(dto.getCompanyId());
+			employee.setCountry(dto.getCountry());
+			employee.setEmail(dto.getEmail());
+			employee.setFirstName(dto.getFirstName());
+			employee.setNickName(dto.getNickName());
+			employee.setPostal(dto.getPostal());
+			employee.setState(dto.getState());
+			
+			this.employeeRepository.save(employee);
+			dto.setId(employee.getId());
+		} catch (Exception e) {
+			throw new ServiceException("Error en createEmployee");
+		}
+		return dto;
+	}
+	
 	public CompanyDTO updateCompany(CompanyDTO dto) throws ServiceException
 	{
 		try {
@@ -500,4 +569,26 @@ public class ProductService {
 		}
 		return dto;
 	}
+	
+	public EmployeeDTO updateEmployee(EmployeeDTO dto) throws ServiceException
+	{
+		try {
+			Employee employee = this.employeeRepository.findOne(dto.getId());
+			employee.setAddress(dto.getAddress());
+			employee.setBirthDate(dto.getBirthDate());
+			employee.setCity(dto.getCity());
+			employee.setCompanyId(dto.getCompanyId());
+			employee.setCountry(dto.getCountry());
+			employee.setEmail(dto.getEmail());
+			employee.setFirstName(dto.getFirstName());
+			employee.setNickName(dto.getNickName());
+			employee.setPostal(dto.getPostal());
+			employee.setState(dto.getState());			
+			this.employeeRepository.save(employee);
+		} catch (Exception e) {
+			throw new ServiceException("Error en createEmployee");
+		}
+		return dto;
+	}
+
 }
