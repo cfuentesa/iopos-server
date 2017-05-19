@@ -1,0 +1,48 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/PageTemplate.xhtml">
+		<ui:define name="pageTitle">#{msg.home_title}</ui:define>
+		<ui:define name="pageHeader">Datalogger Data</ui:define>
+		<ui:define name="content">
+		
+<h:form id="employeeForm">
+    <p:growl id="msgs" showDetail="true" />
+ 	<b:button value="#{msg.employee_add}" look="primary" outcome="actionEmployeeEdit"/>
+    <p:dataTable id="employeeList" var="employee" value="#{employeeListBean.employees}"
+    		selection="#{employeeListBean.employeeSelected}" 
+			selectionMode="single"
+			rowKey="#{employee.id}">
+        <f:facet name="header">
+            #{msg.employee_list}
+        </f:facet>
+        <p:column headerText="Id" visible="false">
+            <h:outputText value="#{employee.id}" />
+        </p:column>
+        <p:column headerText="#{msg.employee_firstname}">
+            <h:outputText value="#{employee.firstName}" />
+        </p:column>
+        <p:column headerText="#{msg.employee_lastname}">
+            <h:outputText value="#{employee.lastName}" />
+        </p:column>
+        <p:column headerText="#{msg.employee_nickname}">
+            <h:outputText value="#{employee.nickName}" />
+        </p:column>
+        <p:column headerText="#{msg.employee_email}">
+            <h:outputText value="#{employee.email}" />
+        </p:column>
+        <p:column style="width:70px;text-align: center">
+             <p:commandButton icon="ui-icon-search" title="View" action="#{employeeListBean.actionEditCategory}">
+                <f:setPropertyActionListener value="#{employee}" target="#{employeeListBean.employeeSelected}"/>
+            </p:commandButton>
+        </p:column>
+    </p:dataTable>
+
+</h:form>
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

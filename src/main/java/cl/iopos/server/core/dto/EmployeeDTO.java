@@ -32,6 +32,8 @@ public class EmployeeDTO implements Serializable {
 	private Date birthDate;
 
 	private String gender;
+	
+	private Boolean training;
 
 	public Integer getId() {
 		return id;
@@ -135,6 +137,14 @@ public class EmployeeDTO implements Serializable {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public Boolean getTraining() {
+		return training;
+	}
+
+	public void setTraining(Boolean training) {
+		this.training = training;
 	}
 
 }

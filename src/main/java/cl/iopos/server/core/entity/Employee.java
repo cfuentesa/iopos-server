@@ -33,7 +33,6 @@ public class Employee implements Serializable {
 	@Column(name = "nick_name", nullable = true, length = 40)
 	private String nickName;
 	
-
 	@Column(name = "address", nullable = true, length = 45)
 	private String address;
 
@@ -57,6 +56,9 @@ public class Employee implements Serializable {
 
 	@Column(name = "gender", nullable = true, length = 45)
 	private String gender;
+	
+	@Column(name = "training", nullable = true)
+	private Boolean training;
 
 	public Integer getId() {
 		return id;
@@ -160,6 +162,14 @@ public class Employee implements Serializable {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public Boolean getTraining() {
+		return training;
+	}
+
+	public void setTraining(Boolean training) {
+		this.training = training;
 	}
 
 }

@@ -1,0 +1,93 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/PageTemplate.xhtml">
+		<ui:define name="pageTitle">#{msg.home_title}</ui:define>
+		<ui:define name="pageHeader">Datalogger Data</ui:define>
+		<ui:define name="content">
+
+<b:panel title="#{msg.categorysetup_category}" collapsible="false">
+	<h:form id="EmployeeForm">
+		<p:growl id="growl" showDetail="true" sticky="false" />
+	    <p:panelGrid id="gridDescription" columns="3" cellpadding="5" >
+	    
+			<p:outputLabel for="firstName" value="#{msg.employee_firstname}" style="text-align: right; display: block;"/>
+	        <p:inputText id="firstName" required="true" maxlength="20" value="#{employeeEditBean.employee.firstName}"/>
+	        <p:message for="firstName" />
+
+			<p:outputLabel for="lastName" value="#{msg.employee_lastname}" style="text-align: right; display: block;"/>
+	        <p:inputText id="lastName" required="true" maxlength="20" value="#{employeeEditBean.employee.lastName}"/>
+	        <p:message for="lastName" />
+
+			<p:outputLabel for="nickName" value="#{msg.employee_nickname}" style="text-align: right; display: block;"/>
+	        <p:inputText id="nickName" required="true" maxlength="20" value="#{employeeEditBean.employee.nickName}"/>
+	        <p:message for="nickName" />
+
+			<p:outputLabel for="address" value="#{msg.employee_address}" style="text-align: right; display: block;"/>
+	        <p:inputText id="address" required="true" maxlength="20" value="#{employeeEditBean.employee.address}"/>
+	        <p:message for="address" />
+
+			<p:outputLabel for="city" value="#{msg.employee_city}" style="text-align: right; display: block;"/>
+	        <p:inputText id="city" required="true" maxlength="20" value="#{employeeEditBean.employee.city}"/>
+	        <p:message for="city" />
+
+			<p:outputLabel for="state" value="#{msg.employee_state}" style="text-align: right; display: block;"/>
+	        <p:inputText id="state" required="true" maxlength="20" value="#{employeeEditBean.employee.state}"/>
+	        <p:message for="state" />
+
+			<p:outputLabel for="postal" value="#{msg.employee_postal}" style="text-align: right; display: block;"/>
+	        <p:inputText id="postal" required="true" maxlength="20" value="#{employeeEditBean.employee.postal}"/>
+	        <p:message for="postal" />
+
+			<p:outputLabel for="country" value="#{msg.employee_country}" style="text-align: right; display: block;"/>
+	        <p:inputText id="country" required="true" maxlength="20" value="#{employeeEditBean.employee.country}"/>
+	        <p:message for="country" />
+
+			<p:outputLabel for="email" value="#{msg.employee_email}" style="text-align: right; display: block;"/>
+	        <p:inputText id="email" required="true" maxlength="20" value="#{employeeEditBean.employee.email}"/>
+	        <p:message for="email" />
+
+			<p:outputLabel for="birthDate" value="#{msg.employee_birthdate}" style="text-align: right; display: block;"/>
+			<p:calendar id="birthDate" value="#{employeeEditBean.employee.birthDate}" required="true" showOn="button" navigator="true"/>
+	        <p:message for="birthDate" />
+
+			<p:outputLabel for="gender" value="#{msg.employee_gender}" style="text-align: right; display: block;"/>
+			<p:selectOneRadio id="gender" value="#{employeeEditBean.employee.gender}">
+				<f:selectItem itemLabel="#{msg.employee_male}" itemValue="M" />
+				<f:selectItem itemLabel="#{msg.employee_female}" itemValue="F" />
+			</p:selectOneRadio>
+	        <p:message for="gender" />
+	        
+			<p:outputLabel for="training" value="#{msg.employee_trainingmode}" style="text-align: right; display: block;"/>
+	        <p:selectBooleanCheckbox id="training" value="#{employeeEditBean.employee.training}" />
+	    </p:panelGrid>
+
+		<p:commandButton id="btnAdd" 
+			value="#{msg.button_add}" 
+			icon="ui-icon-plusthick" 
+			actionListener="#{employeeEditBean.actionAdd}"
+			style="width:150px;"
+			rendered="#{employeeEditBean.isAdd}"
+			validateClient="true"
+			update="gridDescription,growl"/> 
+			
+		<p:spacer height="25px"/>
+		
+		<p:commandButton id="btnEdit" 
+			value="#{msg.button_edit}" 
+			icon="ui-icon-pencil" 
+			actionListener="#{employeeEditBean.actionUpdate}"
+			style="width:150px;"
+			rendered="#{!employeeEditBean.isAdd}"
+			update="gridDescription,growl"/>
+			
+	</h:form>
+</b:panel>
+ 		
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

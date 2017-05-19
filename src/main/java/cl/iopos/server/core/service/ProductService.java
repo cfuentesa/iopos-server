@@ -74,8 +74,24 @@ public class ProductService {
 			List<Employee> result = this.employeeRepository.findByCompanyId(companyId);
 			for(Employee employee : result) {
 				EmployeeDTO dto = new EmployeeDTO();
+				
+				dto.setId(employee.getId());
+				dto.setCompanyId(employee.getCompanyId());
+				
 				dto.setFirstName(employee.getFirstName());
+				dto.setLastName(employee.getLastName());
+				dto.setNickName(employee.getNickName());
+				dto.setEmail(employee.getEmail());
+				dto.setBirthDate(employee.getBirthDate());
+				dto.setGender(employee.getGender());
+				dto.setTraining(employee.getTraining());
+				
 				dto.setAddress(employee.getAddress());
+				dto.setCity(employee.getCity());
+				dto.setState(employee.getState());
+				dto.setCountry(employee.getCountry());
+				dto.setPostal(employee.getPostal());
+				
 				out.add(dto);
 			}
 		} catch (Exception e) {
@@ -91,17 +107,22 @@ public class ProductService {
 		try {
 			Employee employee = this.employeeRepository.findOne(employeeId);
 			if (employee != null) {
-				dto.setAddress(employee.getAddress());
-				dto.setBirthDate(employee.getBirthDate());
-				dto.setCity(employee.getCity());
-				dto.setCompanyId(employee.getCompanyId());
-				dto.setCountry(employee.getCountry());
-				dto.setEmail(employee.getEmail());
-				dto.setFirstName(employee.getFirstName());
 				dto.setId(employee.getId());
+				dto.setCompanyId(employee.getCompanyId());
+				
+				dto.setFirstName(employee.getFirstName());
+				dto.setLastName(employee.getLastName());
 				dto.setNickName(employee.getNickName());
-				dto.setPostal(employee.getPostal());
+				dto.setBirthDate(employee.getBirthDate());
+				dto.setEmail(employee.getEmail());
+				dto.setGender(employee.getGender());
+				dto.setTraining(employee.getTraining());
+				
+				dto.setAddress(employee.getAddress());
+				dto.setCity(employee.getCity());
 				dto.setState(employee.getState());
+				dto.setCountry(employee.getCountry());
+				dto.setPostal(employee.getPostal());
 				
 			}
 		} catch (Exception e) {
@@ -407,18 +428,25 @@ public class ProductService {
 	{
 		try {
 			Employee employee = new Employee();
-			employee.setAddress(dto.getAddress());
-			employee.setBirthDate(dto.getBirthDate());
-			employee.setCity(dto.getCity());
+
 			employee.setCompanyId(dto.getCompanyId());
-			employee.setCountry(dto.getCountry());
-			employee.setEmail(dto.getEmail());
+
 			employee.setFirstName(dto.getFirstName());
+			employee.setLastName(dto.getLastName());
 			employee.setNickName(dto.getNickName());
-			employee.setPostal(dto.getPostal());
+			employee.setEmail(dto.getEmail());
+			employee.setBirthDate(dto.getBirthDate());
+			employee.setGender(dto.getGender());
+			employee.setTraining(dto.getTraining());
+			
+			employee.setAddress(dto.getAddress());
+			employee.setCity(dto.getCity());
 			employee.setState(dto.getState());
+			employee.setCountry(dto.getCountry());
+			employee.setPostal(dto.getPostal());			
 			
 			this.employeeRepository.save(employee);
+			
 			dto.setId(employee.getId());
 		} catch (Exception e) {
 			throw new ServiceException("Error en createEmployee");
@@ -574,17 +602,25 @@ public class ProductService {
 	{
 		try {
 			Employee employee = this.employeeRepository.findOne(dto.getId());
-			employee.setAddress(dto.getAddress());
-			employee.setBirthDate(dto.getBirthDate());
-			employee.setCity(dto.getCity());
+
 			employee.setCompanyId(dto.getCompanyId());
-			employee.setCountry(dto.getCountry());
-			employee.setEmail(dto.getEmail());
+
 			employee.setFirstName(dto.getFirstName());
+			employee.setLastName(dto.getLastName());
 			employee.setNickName(dto.getNickName());
-			employee.setPostal(dto.getPostal());
+			employee.setEmail(dto.getEmail());
+			employee.setBirthDate(dto.getBirthDate());
+			employee.setGender(dto.getGender());
+			employee.setTraining(dto.getTraining());
+
+			employee.setAddress(dto.getAddress());
+			employee.setCity(dto.getCity());
 			employee.setState(dto.getState());			
+			employee.setCountry(dto.getCountry());
+			employee.setPostal(dto.getPostal());
+			
 			this.employeeRepository.save(employee);
+			
 		} catch (Exception e) {
 			throw new ServiceException("Error en createEmployee");
 		}
