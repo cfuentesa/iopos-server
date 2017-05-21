@@ -10,6 +10,35 @@
 		<ui:define name="pageHeader">Datalogger Data</ui:define>
 		<ui:define name="content">
 			<h:form id="stationForm">
+			
+    <p:growl id="msgs" showDetail="true" />
+ 	<b:button value="#{msg.station_add}" look="primary" outcome="actionStationEdit"/>
+    <p:dataTable id="stationList" var="station" value="#{stationListBean.stations}"
+    		selection="#{stationListBean.stationSelected}" 
+			selectionMode="single"
+			rowKey="#{station.id}">
+        <f:facet name="header">
+            #{msg.station_list}
+        </f:facet>
+        <p:column headerText="Id" visible="false">
+            <h:outputText value="#{station.id}" />
+        </p:column>
+        <p:column headerText="#{msg.station_stationnumber}">
+            <h:outputText value="#{station.stationNumber}" />
+        </p:column>
+        <p:column headerText="#{msg.station_description}">
+            <h:outputText value="#{station.description}" />
+        </p:column>
+        <p:column headerText="#{msg.station_active}">
+            <h:outputText value="#{station.active}" />
+        </p:column>
+        <p:column style="width:70px;text-align: center">
+             <p:commandButton icon="ui-icon-search" title="View" action="#{stationListBean.actionEdit}">
+                <f:setPropertyActionListener value="#{station}" target="#{stationListBean.stationSelected}"/>
+            </p:commandButton>
+        </p:column>
+    </p:dataTable>
+
 			</h:form>
 		</ui:define>
 	</ui:composition>

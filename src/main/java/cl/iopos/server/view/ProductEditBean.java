@@ -24,6 +24,7 @@ import cl.iopos.server.core.service.ProductService;
 public class ProductEditBean implements Serializable {
 
 	private static final long serialVersionUID = -1254509017907284780L;
+	
 	final Logger logger = LoggerFactory.getLogger(getClass());
 	@ManagedProperty(value="#{productService}")
 	private ProductService productService;
@@ -65,6 +66,8 @@ public class ProductEditBean implements Serializable {
 
 	@PostConstruct
 	public void init(){
+		logger.debug("execute {}",Thread.currentThread().getStackTrace()[1].getMethodName());
+		
 		String param = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("productId");
 		
 		if (param != null){
@@ -95,29 +98,29 @@ public class ProductEditBean implements Serializable {
 		}
 	}
 	
-	public void actionAddProduct(){
+	public void actionAdd(){
 		logger.debug("execute {}",Thread.currentThread().getStackTrace()[1].getMethodName());
-		System.out.println("execute " + Thread.currentThread().getStackTrace()[1].getMethodName());
+		
 		try {
 			this.productService.createProduct(this.product);
 			
 	        FacesContext context = FacesContext.getCurrentInstance();
-	        context.addMessage(null, new FacesMessage("Successful",  "Your message: " + "hola") );
+	        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful",  "Your message: " + "hola") );
 		} catch (Exception e) {
 	        FacesContext context = FacesContext.getCurrentInstance();
-	        context.addMessage(null, new FacesMessage("Successful",  "Your message: " + "hola") );
+	        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Successful",  "Your message: " + "hola") );
 		}
 
 	}
 	
-	public void actionUpdateProduct(){
+	public void actionUpdate(){
 		logger.debug("execute {}",Thread.currentThread().getStackTrace()[1].getMethodName());
-		System.out.println("execute " + Thread.currentThread().getStackTrace()[1].getMethodName());
+		
 		try {
 			this.productService.updateProduct(this.product);
 
 	        FacesContext context = FacesContext.getCurrentInstance();
-	        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!",  "Your message: " + "hola") );
+	        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error!",  "Your message: " + "hola") );
 		} catch (Exception e) {
 	        FacesContext context = FacesContext.getCurrentInstance();
 	        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!",  "Your message: " + "hola") );

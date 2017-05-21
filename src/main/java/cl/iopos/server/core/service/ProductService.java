@@ -1,5 +1,6 @@
 	package cl.iopos.server.core.service;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,19 +11,24 @@ import cl.iopos.server.core.dto.CategoryDTO;
 import cl.iopos.server.core.dto.CompanyDTO;
 import cl.iopos.server.core.dto.EmployeeDTO;
 import cl.iopos.server.core.dto.ProductDTO;
+import cl.iopos.server.core.dto.StationDTO;
 import cl.iopos.server.core.entity.Category;
 import cl.iopos.server.core.entity.Company;
 import cl.iopos.server.core.entity.Employee;
 import cl.iopos.server.core.entity.Product;
+import cl.iopos.server.core.entity.Station;
 import cl.iopos.server.core.exception.ServiceException;
 import cl.iopos.server.core.repository.CategoryRepository;
 import cl.iopos.server.core.repository.CompanyRepository;
 import cl.iopos.server.core.repository.EmployeeRepository;
 import cl.iopos.server.core.repository.ProductRepository;
+import cl.iopos.server.core.repository.StationRepository;
 
 @Component
-public class ProductService {
+public class ProductService implements Serializable {
 	
+	private static final long serialVersionUID = 1732602600288046499L;
+
 	@Autowired
 	private ProductRepository productRepository;
 
@@ -34,6 +40,9 @@ public class ProductService {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	
+	@Autowired
+	private StationRepository stationRepository;
 
 	public ProductRepository getProductRepository() {
 		return productRepository;
@@ -67,69 +76,12 @@ public class ProductService {
 		this.employeeRepository = employeeRepository;
 	}
 	
-	public List<EmployeeDTO> employeeFindByCompany(Integer companyId) 
-	{
-		List<EmployeeDTO> out = new ArrayList<EmployeeDTO>();
-		try {
-			List<Employee> result = this.employeeRepository.findByCompanyId(companyId);
-			for(Employee employee : result) {
-				EmployeeDTO dto = new EmployeeDTO();
-				
-				dto.setId(employee.getId());
-				dto.setCompanyId(employee.getCompanyId());
-				
-				dto.setFirstName(employee.getFirstName());
-				dto.setLastName(employee.getLastName());
-				dto.setNickName(employee.getNickName());
-				dto.setEmail(employee.getEmail());
-				dto.setBirthDate(employee.getBirthDate());
-				dto.setGender(employee.getGender());
-				dto.setTraining(employee.getTraining());
-				
-				dto.setAddress(employee.getAddress());
-				dto.setCity(employee.getCity());
-				dto.setState(employee.getState());
-				dto.setCountry(employee.getCountry());
-				dto.setPostal(employee.getPostal());
-				
-				out.add(dto);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return out;
+	public StationRepository getStationRepository() {
+		return stationRepository;
 	}
-	
-	public EmployeeDTO employeeFindById(Integer employeeId) throws ServiceException 
-	{
-		EmployeeDTO dto = new EmployeeDTO();
-		
-		try {
-			Employee employee = this.employeeRepository.findOne(employeeId);
-			if (employee != null) {
-				dto.setId(employee.getId());
-				dto.setCompanyId(employee.getCompanyId());
-				
-				dto.setFirstName(employee.getFirstName());
-				dto.setLastName(employee.getLastName());
-				dto.setNickName(employee.getNickName());
-				dto.setBirthDate(employee.getBirthDate());
-				dto.setEmail(employee.getEmail());
-				dto.setGender(employee.getGender());
-				dto.setTraining(employee.getTraining());
-				
-				dto.setAddress(employee.getAddress());
-				dto.setCity(employee.getCity());
-				dto.setState(employee.getState());
-				dto.setCountry(employee.getCountry());
-				dto.setPostal(employee.getPostal());
-				
-			}
-		} catch (Exception e) {
-			throw new ServiceException("Error en employeeFindById");
-		}
-		
-		return dto;
+
+	public void setStationRepository(StationRepository stationRepository) {
+		this.stationRepository = stationRepository;
 	}
 
 	public List<CategoryDTO> categoryFindAll() throws ServiceException 
@@ -146,26 +98,6 @@ public class ProductService {
 			}
 		} catch (Exception e) {
 			throw new ServiceException("Error en categoryFindAll");
-		}
-		return out;
-	}
-
-	public List<CategoryDTO> categoryFindByCompany(Integer companyId) throws ServiceException 
-	{
-		List<CategoryDTO> out = new ArrayList<CategoryDTO>();
-		
-		try {
-			List<Category> result = (List<Category>) this.categoryRepository.findByCompanyId(companyId);
-			
-			for(Category category : result) {
-				CategoryDTO dto = new CategoryDTO();
-				dto.setId(category.getId());
-				dto.setCompanyId(category.getCompanyId());
-				dto.setDescription(category.getDescription());
-				out.add(dto);
-			}
-		} catch (Exception e) {
-			throw new ServiceException("Error en categoryFindByCompany");
 		}
 		return out;
 	}
@@ -203,6 +135,26 @@ public class ProductService {
 		return out;
 	}
 
+	public List<CategoryDTO> categoryFindByCompany(Integer companyId) throws ServiceException 
+	{
+		List<CategoryDTO> out = new ArrayList<CategoryDTO>();
+		
+		try {
+			List<Category> result = (List<Category>) this.categoryRepository.findByCompanyId(companyId);
+			
+			for(Category category : result) {
+				CategoryDTO dto = new CategoryDTO();
+				dto.setId(category.getId());
+				dto.setCompanyId(category.getCompanyId());
+				dto.setDescription(category.getDescription());
+				out.add(dto);
+			}
+		} catch (Exception e) {
+			throw new ServiceException("Error en categoryFindByCompany");
+		}
+		return out;
+	}
+
 	public List<ProductDTO> productFindByCompany(Integer companyId) throws ServiceException
 	{
 		List<ProductDTO> out = new ArrayList<ProductDTO>();
@@ -233,6 +185,60 @@ public class ProductService {
 			}
 		} catch (Exception e) {
 			throw new ServiceException("Error en productFindByCompany");
+		}
+		return out;
+	}
+
+	public List<EmployeeDTO> employeeFindByCompany(Integer companyId) throws ServiceException
+	{
+		List<EmployeeDTO> out = new ArrayList<EmployeeDTO>();
+		try {
+			List<Employee> result = this.employeeRepository.findByCompanyId(companyId);
+			for(Employee employee : result) {
+				EmployeeDTO dto = new EmployeeDTO();
+				
+				dto.setId(employee.getId());
+				dto.setCompanyId(employee.getCompanyId());
+				
+				dto.setFirstName(employee.getFirstName());
+				dto.setLastName(employee.getLastName());
+				dto.setNickName(employee.getNickName());
+				dto.setEmail(employee.getEmail());
+				dto.setBirthDate(employee.getBirthDate());
+				dto.setGender(employee.getGender());
+				dto.setTraining(employee.getTraining());
+				
+				dto.setAddress(employee.getAddress());
+				dto.setCity(employee.getCity());
+				dto.setState(employee.getState());
+				dto.setCountry(employee.getCountry());
+				dto.setPostal(employee.getPostal());
+				
+				out.add(dto);
+			}
+		} catch (Exception e) {
+			throw new ServiceException("Error en employeeFindByCompany");
+		}
+		return out;
+	}
+	
+	public List<StationDTO> stationFindByCompany(Integer companyId) throws ServiceException
+	{
+		List<StationDTO> out = new ArrayList<StationDTO>();
+		try {
+			List<Station> result = this.stationRepository.findByCompanyId(companyId);
+			for(Station station : result) {
+				StationDTO dto = new StationDTO();
+				dto.setId(station.getId());
+				dto.setCompanyId(station.getCompanyId());
+				dto.setStationNumber(station.getStationNumber());
+				dto.setDescription(station.getDescription());
+				dto.setAutoLogout(station.getAutoLogout());
+				dto.setActive(station.getActive());
+				out.add(dto);
+			}
+		} catch (Exception e) {
+			throw new ServiceException("Error en stationFindByCompany");
 		}
 		return out;
 	}
@@ -362,6 +368,56 @@ public class ProductService {
 		return dto;
 	}
 	
+	public EmployeeDTO employeeFindById(Integer employeeId) throws ServiceException 
+	{
+		EmployeeDTO dto = new EmployeeDTO();
+		
+		try {
+			Employee employee = this.employeeRepository.findOne(employeeId);
+			if (employee != null) {
+				dto.setId(employee.getId());
+				dto.setCompanyId(employee.getCompanyId());
+				
+				dto.setFirstName(employee.getFirstName());
+				dto.setLastName(employee.getLastName());
+				dto.setNickName(employee.getNickName());
+				dto.setBirthDate(employee.getBirthDate());
+				dto.setEmail(employee.getEmail());
+				dto.setGender(employee.getGender());
+				dto.setTraining(employee.getTraining());
+				
+				dto.setAddress(employee.getAddress());
+				dto.setCity(employee.getCity());
+				dto.setState(employee.getState());
+				dto.setCountry(employee.getCountry());
+				dto.setPostal(employee.getPostal());
+				
+			}
+		} catch (Exception e) {
+			throw new ServiceException("Error en employeeFindById");
+		}
+		
+		return dto;
+	}
+	
+	public StationDTO stationFindById(Integer id) throws ServiceException
+	{
+		StationDTO dto = new StationDTO();
+		
+		try {
+			Station station = this.stationRepository.findOne(id);
+			dto.setId(station.getId());
+			dto.setCompanyId(station.getCompanyId());
+			dto.setStationNumber(station.getStationNumber());
+			dto.setDescription(station.getDescription());
+			dto.setAutoLogout(station.getAutoLogout());
+			dto.setActive(station.getActive());
+		} catch (Exception e) {
+			throw new ServiceException("Error en productFindById");
+		}
+		return dto;
+	}
+	
 	public CompanyDTO createCompany(CompanyDTO dto) throws ServiceException
 	{
 		try {
@@ -450,6 +506,23 @@ public class ProductService {
 			dto.setId(employee.getId());
 		} catch (Exception e) {
 			throw new ServiceException("Error en createEmployee");
+		}
+		return dto;
+	}
+	
+	public StationDTO createStation(StationDTO dto) throws ServiceException
+	{
+		try {
+			Station station = new Station();
+			station.setCompanyId(dto.getCompanyId());
+			station.setStationNumber(dto.getStationNumber());
+			station.setDescription(dto.getDescription());
+			station.setAutoLogout(dto.getAutoLogout());
+			station.setActive(dto.getActive());
+			this.stationRepository.save(station);
+			dto.setId(station.getId());
+		} catch (Exception e) {
+			throw new ServiceException("Error en createStation");
 		}
 		return dto;
 	}
@@ -622,7 +695,24 @@ public class ProductService {
 			this.employeeRepository.save(employee);
 			
 		} catch (Exception e) {
-			throw new ServiceException("Error en createEmployee");
+			throw new ServiceException("Error en updateEmployee");
+		}
+		return dto;
+	}
+	
+	public StationDTO updateStation(StationDTO dto) throws ServiceException
+	{
+		try {
+			Station station = this.stationRepository.findOne(dto.getId());
+			station.setCompanyId(dto.getCompanyId());
+			station.setStationNumber(dto.getStationNumber());
+			station.setDescription(dto.getDescription());
+			station.setAutoLogout(dto.getAutoLogout());
+			station.setActive(dto.getActive());
+			this.stationRepository.save(station);
+			
+		} catch (Exception e) {
+			throw new ServiceException("Error en updateStation");
 		}
 		return dto;
 	}

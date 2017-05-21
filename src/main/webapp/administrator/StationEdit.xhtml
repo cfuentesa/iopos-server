@@ -10,6 +10,48 @@
 		<ui:define name="pageHeader">Datalogger Data</ui:define>
 		<ui:define name="content">
 			<h:form id="stationForm">
+			
+		<p:growl id="growl" showDetail="true" sticky="false" />
+<b:panel title="Product Setup">
+
+	    <p:panelGrid id="gridDescription" columns="3" cellpadding="5" >
+	    
+			<p:outputLabel for="number" value="#{msg.station_stationnumber}" style="text-align: right; display: block;"/>
+	        <p:inputText id="number" required="true" maxlength="20" value="#{stationEditBean.station.stationNumber}"/>
+	        <p:message for="number" />
+	    
+			<p:outputLabel for="description" value="#{msg.station_description}" style="text-align: right; display: block;"/>
+	        <p:inputText id="description" required="true" maxlength="20" value="#{stationEditBean.station.description}"/>
+	        <p:message for="description" />
+
+			<p:outputLabel for="autologout" value="#{msg.station_autologout}" style="text-align: right; display: block;"/>
+	        <p:spinner id="autologout" required="true" value="#{stationEditBean.station.autoLogout}" min="0" max="120"/>
+	        <p:message for="autologout" />
+	    
+			<p:outputLabel for="active" value="#{msg.station_active}" style="text-align: right; display: block;"/>
+	        <p:selectBooleanCheckbox id="active" required="true" value="#{stationEditBean.station.active}" />
+	        
+		</p:panelGrid>
+		
+		<p:commandButton id="btnAdd" 
+			value="#{msg.button_add}" 
+			icon="ui-icon-plusthick" 
+			actionListener="#{stationEditBean.actionAdd}"
+			style="width:150px;"
+			rendered="#{stationEditBean.isAdd}"
+			validateClient="true"
+			update="gridDescription,growl"/> 
+			
+		<p:spacer height="25px"/>
+		
+		<p:commandButton id="btnSave" 
+			value="#{msg.button_save}" 
+			icon="fa fa-save" 
+			actionListener="#{stationEditBean.actionUpdate}"
+			style="width:150px;"
+			rendered="#{!stationEditBean.isAdd}"
+			update="gridDescription,growl"/>
+</b:panel>
 			</h:form>
 		</ui:define>
 	</ui:composition>
