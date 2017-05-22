@@ -12,17 +12,20 @@ import cl.iopos.server.core.dto.CompanyDTO;
 import cl.iopos.server.core.dto.EmployeeDTO;
 import cl.iopos.server.core.dto.ProductDTO;
 import cl.iopos.server.core.dto.StationDTO;
+import cl.iopos.server.core.dto.WarehouseDTO;
 import cl.iopos.server.core.entity.Category;
 import cl.iopos.server.core.entity.Company;
 import cl.iopos.server.core.entity.Employee;
 import cl.iopos.server.core.entity.Product;
 import cl.iopos.server.core.entity.Station;
+import cl.iopos.server.core.entity.Warehouse;
 import cl.iopos.server.core.exception.ServiceException;
 import cl.iopos.server.core.repository.CategoryRepository;
 import cl.iopos.server.core.repository.CompanyRepository;
 import cl.iopos.server.core.repository.EmployeeRepository;
 import cl.iopos.server.core.repository.ProductRepository;
 import cl.iopos.server.core.repository.StationRepository;
+import cl.iopos.server.core.repository.WarehouseRepository;
 
 @Component
 public class ProductService implements Serializable {
@@ -43,6 +46,9 @@ public class ProductService implements Serializable {
 	
 	@Autowired
 	private StationRepository stationRepository;
+	
+	@Autowired
+	private WarehouseRepository warehouseRepository;
 
 	public ProductRepository getProductRepository() {
 		return productRepository;
@@ -82,6 +88,14 @@ public class ProductService implements Serializable {
 
 	public void setStationRepository(StationRepository stationRepository) {
 		this.stationRepository = stationRepository;
+	}
+
+	public WarehouseRepository getWarehouseRepository() {
+		return warehouseRepository;
+	}
+
+	public void setWarehouseRepository(WarehouseRepository warehouseRepository) {
+		this.warehouseRepository = warehouseRepository;
 	}
 
 	public List<CategoryDTO> categoryFindAll() throws ServiceException 
@@ -239,6 +253,36 @@ public class ProductService implements Serializable {
 			}
 		} catch (Exception e) {
 			throw new ServiceException("Error en stationFindByCompany");
+		}
+		return out;
+	}
+	
+	public List<WarehouseDTO> warehouseFindByCompany(Integer companyId) throws ServiceException
+	{
+		List<WarehouseDTO> out = new ArrayList<WarehouseDTO>();
+		try {
+			List<Warehouse> result = this.warehouseRepository.findByCompanyId(companyId);
+			for(Warehouse warehouse : result) {
+				WarehouseDTO dto = new WarehouseDTO();
+				dto.setId(warehouse.getId());
+				dto.setCompanyId(warehouse.getCompanyId());
+				dto.setDescription(warehouse.getDescription());
+				dto.setReferenceNumber(warehouse.getReferenceNumber());
+				dto.setContact(warehouse.getContact());
+				dto.setTelephoneNumber(warehouse.getTelephoneNumber());
+				dto.setMovilNumber(warehouse.getMovilNumber());
+				dto.setEmail(warehouse.getEmail());
+				dto.setAddress1(warehouse.getAddress1());
+				dto.setAddress2(warehouse.getAddress2());
+				dto.setCity(warehouse.getCity());
+				dto.setPostal(warehouse.getPostal());
+				dto.setState(warehouse.getState());
+				dto.setCountry(warehouse.getCountry());
+				dto.setActive(warehouse.getActive());
+				out.add(dto);
+			}
+		} catch (Exception e) {
+			throw new ServiceException("Error en warehouseFindByCompany");
 		}
 		return out;
 	}
@@ -418,6 +462,33 @@ public class ProductService implements Serializable {
 		return dto;
 	}
 	
+	public WarehouseDTO warehouseFindById(Integer id) throws ServiceException
+	{
+		WarehouseDTO dto = new WarehouseDTO();
+		
+		try {
+			Warehouse warehouse = this.warehouseRepository.findOne(id);
+			dto.setId(warehouse.getId());
+			dto.setCompanyId(warehouse.getCompanyId());
+			dto.setDescription(warehouse.getDescription());
+			dto.setReferenceNumber(warehouse.getReferenceNumber());
+			dto.setContact(warehouse.getContact());
+			dto.setTelephoneNumber(warehouse.getTelephoneNumber());
+			dto.setMovilNumber(warehouse.getMovilNumber());
+			dto.setEmail(warehouse.getEmail());
+			dto.setAddress1(warehouse.getAddress1());
+			dto.setAddress2(warehouse.getAddress2());
+			dto.setCity(warehouse.getCity());
+			dto.setPostal(warehouse.getPostal());
+			dto.setState(warehouse.getState());
+			dto.setCountry(warehouse.getCountry());
+			dto.setActive(warehouse.getActive());			
+		} catch (Exception e) {
+			throw new ServiceException("Error en warehouseFindById");
+		}
+		return dto;
+	}
+	
 	public CompanyDTO createCompany(CompanyDTO dto) throws ServiceException
 	{
 		try {
@@ -523,6 +594,32 @@ public class ProductService implements Serializable {
 			dto.setId(station.getId());
 		} catch (Exception e) {
 			throw new ServiceException("Error en createStation");
+		}
+		return dto;
+	}
+	
+	public WarehouseDTO createWarehouse(WarehouseDTO dto) throws ServiceException
+	{
+		try {
+			Warehouse warehouse = new Warehouse();
+			warehouse.setCompanyId(dto.getCompanyId());
+			warehouse.setDescription(dto.getDescription());
+			warehouse.setReferenceNumber(dto.getReferenceNumber());
+			warehouse.setContact(dto.getContact());
+			warehouse.setTelephoneNumber(dto.getTelephoneNumber());
+			warehouse.setMovilNumber(dto.getMovilNumber());
+			warehouse.setEmail(dto.getEmail());
+			warehouse.setAddress1(dto.getAddress1());
+			warehouse.setAddress2(dto.getAddress2());
+			warehouse.setCity(dto.getCity());
+			warehouse.setPostal(dto.getPostal());
+			warehouse.setState(dto.getState());
+			warehouse.setCountry(dto.getCountry());
+			warehouse.setActive(dto.getActive());
+			this.warehouseRepository.save(warehouse);
+			dto.setId(warehouse.getId());
+		} catch (Exception e) {
+			throw new ServiceException("Error en createWarehouse");
 		}
 		return dto;
 	}
@@ -713,6 +810,31 @@ public class ProductService implements Serializable {
 			
 		} catch (Exception e) {
 			throw new ServiceException("Error en updateStation");
+		}
+		return dto;
+	}
+
+	public WarehouseDTO updateWarehouse(WarehouseDTO dto) throws ServiceException
+	{
+		try {
+			Warehouse warehouse = this.warehouseRepository.findOne(dto.getId());
+			warehouse.setCompanyId(dto.getCompanyId());
+			warehouse.setDescription(dto.getDescription());
+			warehouse.setReferenceNumber(dto.getReferenceNumber());
+			warehouse.setContact(dto.getContact());
+			warehouse.setTelephoneNumber(dto.getTelephoneNumber());
+			warehouse.setMovilNumber(dto.getMovilNumber());
+			warehouse.setEmail(dto.getEmail());
+			warehouse.setAddress1(dto.getAddress1());
+			warehouse.setAddress2(dto.getAddress2());
+			warehouse.setCity(dto.getCity());
+			warehouse.setPostal(dto.getPostal());
+			warehouse.setState(dto.getState());
+			warehouse.setCountry(dto.getCountry());
+			warehouse.setActive(dto.getActive());
+			this.warehouseRepository.save(warehouse);
+		} catch (Exception e) {
+			throw new ServiceException("Error en updateWarehouse");
 		}
 		return dto;
 	}

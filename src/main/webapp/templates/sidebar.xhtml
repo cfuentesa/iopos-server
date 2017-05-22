@@ -47,6 +47,20 @@
 					icon="fa fa-desktop" 
 					outcome="actionStationList"/>
 			</p:submenu>
+			<p:submenu label="#{msg.sidebar_inventory}">
+				<p:menuitem value="#{msg.sidebar_inventory_supplier}" 
+					icon="fa fa-exchange" 
+					outcome="actionSupplierList"/>
+				<p:menuitem value="#{msg.sidebar_inventory_warehouse}" 
+					icon="fa fa-stack-exchange" 
+					outcome="actionWarehouseList"/>
+				<p:menuitem value="#{msg.sidebar_inventory_item}" 
+					icon="fa fa-gears" 
+					outcome="actionItemList"/>
+				<p:menuitem value="#{msg.sidebar_inventory_purchase}" 
+					icon="fa fa-newspaper-o" 
+					outcome="actionPurchaseList"/>
+			</p:submenu>
 		</p:panelMenu>
 	</h:form>
 </ui:fragment>
