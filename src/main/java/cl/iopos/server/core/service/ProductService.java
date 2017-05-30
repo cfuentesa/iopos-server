@@ -12,12 +12,14 @@ import cl.iopos.server.core.dto.CompanyDTO;
 import cl.iopos.server.core.dto.EmployeeDTO;
 import cl.iopos.server.core.dto.ProductDTO;
 import cl.iopos.server.core.dto.StationDTO;
+import cl.iopos.server.core.dto.SupplierDTO;
 import cl.iopos.server.core.dto.WarehouseDTO;
 import cl.iopos.server.core.entity.Category;
 import cl.iopos.server.core.entity.Company;
 import cl.iopos.server.core.entity.Employee;
 import cl.iopos.server.core.entity.Product;
 import cl.iopos.server.core.entity.Station;
+import cl.iopos.server.core.entity.Supplier;
 import cl.iopos.server.core.entity.Warehouse;
 import cl.iopos.server.core.exception.ServiceException;
 import cl.iopos.server.core.repository.CategoryRepository;
@@ -25,6 +27,7 @@ import cl.iopos.server.core.repository.CompanyRepository;
 import cl.iopos.server.core.repository.EmployeeRepository;
 import cl.iopos.server.core.repository.ProductRepository;
 import cl.iopos.server.core.repository.StationRepository;
+import cl.iopos.server.core.repository.SupplierRepository;
 import cl.iopos.server.core.repository.WarehouseRepository;
 
 @Component
@@ -49,6 +52,9 @@ public class ProductService implements Serializable {
 	
 	@Autowired
 	private WarehouseRepository warehouseRepository;
+	
+	@Autowired
+	private SupplierRepository supplierRepository;
 
 	public ProductRepository getProductRepository() {
 		return productRepository;
@@ -96,6 +102,14 @@ public class ProductService implements Serializable {
 
 	public void setWarehouseRepository(WarehouseRepository warehouseRepository) {
 		this.warehouseRepository = warehouseRepository;
+	}
+
+	public SupplierRepository getSupplierRepository() {
+		return supplierRepository;
+	}
+
+	public void setSupplierRepository(SupplierRepository supplierRepository) {
+		this.supplierRepository = supplierRepository;
 	}
 
 	public List<CategoryDTO> categoryFindAll() throws ServiceException 
@@ -283,6 +297,24 @@ public class ProductService implements Serializable {
 			}
 		} catch (Exception e) {
 			throw new ServiceException("Error en warehouseFindByCompany");
+		}
+		return out;
+	}
+	
+	public List<SupplierDTO> supplierFindByCompany(Integer companyId) throws ServiceException
+	{
+		List<SupplierDTO> out = new ArrayList<SupplierDTO>();
+		try {
+			List<Supplier> result = this.supplierRepository.findByCompanyId(companyId);
+			for (Supplier supplier : result) {
+				SupplierDTO dto = new SupplierDTO();
+				dto.setId(supplier.getId());
+				dto.setCompanyId(supplier.getCompanyId());
+				dto.setName(supplier.getName());
+				out.add(dto);
+			}
+		} catch (Exception e) {
+			throw new ServiceException("Error en supplierFindByCompany");
 		}
 		return out;
 	}

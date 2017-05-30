@@ -11,6 +11,83 @@
 		<ui:define name="content">
 			<h:form id="warehouseForm">
 
+<p:growl id="growl" showDetail="true" sticky="false" />
+<b:panel title="Warehouse Setup">
+	
+    <p:panelGrid id="gridDescription" columns="3" cellpadding="5">
+    
+		<p:outputLabel for="description" value="#{msg.warehouse_description} :" />
+        <p:inputText id="description" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.description}"/>
+        <p:message for="description" />
+
+		<p:outputLabel for="reference" value="#{msg.warehouse_reference_number} :" />
+        <p:inputText id="reference" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.referenceNumber}"/>
+        <p:message for="reference" />
+
+		<p:outputLabel for="contact" value="#{msg.warehouse_contact} :" />
+        <p:inputText id="contact" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.contact}"/>
+        <p:message for="contact" />
+
+		<p:outputLabel for="telephone" value="#{msg.warehouse_telephone} :" />
+        <p:inputText id="telephone" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.telephoneNumber}"/>
+        <p:message for="telephone" />
+
+		<p:outputLabel for="mobile" value="#{msg.warehouse_mobile} :" />
+        <p:inputText id="mobile" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.movilNumber}"/>
+        <p:message for="mobile" />
+
+		<p:outputLabel for="email" value="#{msg.warehouse_email} :" />
+        <p:inputText id="email" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.email}"/>
+        <p:message for="email" />
+        
+		<p:outputLabel for="address" value="#{msg.warehouse_address} :" />
+        <p:inputText id="address" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.address1}"/>
+        <p:message for="address" />
+
+		<p:spacer />
+        <p:inputText id="address2" required="false" maxlength="20" value="#{warehouseEditBean.warehouse.address2}"/>
+        <p:message for="address2" />
+        
+		<p:outputLabel for="city" value="#{msg.warehouse_city} :" />
+        <p:inputText id="city" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.city}"/>
+        <p:message for="city" />
+        
+		<p:outputLabel for="postal" value="#{msg.warehouse_postal} :" />
+        <p:inputText id="postal" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.postal}"/>
+        <p:message for="postal" />
+        
+		<p:outputLabel for="state" value="#{msg.warehouse_state} :" />
+        <p:inputText id="state" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.state}"/>
+        <p:message for="state" />
+        
+		<p:outputLabel for="country" value="#{msg.warehouse_country} :" />
+        <p:inputText id="country" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.country}"/>
+        <p:message for="country" />
+
+	</p:panelGrid>
+	
+    
+	<p:commandButton id="btnAdd" 
+		value="#{msg.button_add}" 
+		icon="ui-icon-plusthick" 
+		actionListener="#{warehouseEditBean.actionAdd}"
+		style="width:150px;"
+		rendered="#{warehouseEditBean.isAdd}"
+		validateClient="true"
+		update="gridDescription,growl"/> 
+		
+	<p:spacer height="25px"/>
+	
+	<p:commandButton id="btnEdit" 
+		value="#{msg.button_edit}" 
+		icon="ui-icon-pencil" 
+		actionListener="#{warehouseEditBean.actionUpdate}"
+		style="width:150px;"
+		rendered="#{!warehouseEditBean.isAdd}"
+		update="gridDescription,growl"/>
+
+</b:panel>
+	
 			</h:form>
 		</ui:define>
 	</ui:composition>

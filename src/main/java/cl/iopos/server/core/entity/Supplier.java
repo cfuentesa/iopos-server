@@ -3,6 +3,7 @@ package cl.iopos.server.core.entity;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,21 +26,15 @@ public class Supplier implements Serializable {
 
 	@Column(name = "name", nullable = false, length = 40)
 	private String name;
-
-	@Column(name = "contact", nullable = false, length = 40)
-	private String contact;
-	
-	@Column(name = "telephone_number", nullable = false, length = 40)
-	private String telephoneNumber;
-	
-	@Column(name = "movil_number", nullable = false, length = 40)
-	private String movilNumber;
-	
-	@Column(name = "email", nullable = false, length = 40)
-	private String email;
 	
 	@Column(name = "account_number", nullable = false, length = 40)
 	private String accountNumber;
+	
+	@Embedded
+	private Address address;
+
+	@Embedded
+	private Contact contact;
 	
 	@Column(name = "active", nullable = false)
 	private Boolean active;
@@ -68,44 +63,28 @@ public class Supplier implements Serializable {
 		this.name = name;
 	}
 
-	public String getContact() {
-		return contact;
-	}
-
-	public void setContact(String contact) {
-		this.contact = contact;
-	}
-
-	public String getTelephoneNumber() {
-		return telephoneNumber;
-	}
-
-	public void setTelephoneNumber(String telephoneNumber) {
-		this.telephoneNumber = telephoneNumber;
-	}
-
-	public String getMovilNumber() {
-		return movilNumber;
-	}
-
-	public void setMovilNumber(String movilNumber) {
-		this.movilNumber = movilNumber;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getAccountNumber() {
 		return accountNumber;
 	}
 
 	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Contact getContact() {
+		return contact;
+	}
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
 	}
 
 	public Boolean getActive() {

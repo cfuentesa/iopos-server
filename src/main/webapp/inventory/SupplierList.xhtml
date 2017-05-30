@@ -11,6 +11,37 @@
 		<ui:define name="content">
 			<h:form id="supplierForm">
 
+    <p:growl id="msgs" showDetail="true" />
+ 
+ 	<b:button value="#{msg.supplier_add}" look="primary" outcome="actionSupplierEdit"/>
+ 	
+    <p:dataTable id="supplierList" var="supplier" value="#{supplierListBean.suppliers}"
+    				selection="#{supplierListBean.supplierSelected}" 
+			selectionMode="single"
+			rowKey="#{supplier.id}" 
+    	>
+        <f:facet name="header">
+            #{msg.supplier_list}
+        </f:facet>
+        <p:column headerText="Id" visible="false">
+            <h:outputText value="#{supplier.id}" />
+        </p:column>
+        <p:column headerText="#{msg.warehouse_description}">
+            <h:outputText value="#{warehouse.description}" />
+        </p:column>
+        <p:column headerText="#{msg.warehouse_reference_number}">
+            <h:outputText value="#{warehouse.referenceNumber}" />
+        </p:column>
+        <p:column headerText="#{msg.warehouse_contact}">
+            <h:outputText value="#{warehouse.contact}" />
+        </p:column>
+        <p:column style="width:70px;text-align: center">
+             <p:commandButton icon="ui-icon-search" title="View" action="#{warehouseListBean.actionEdit}">
+                <f:setPropertyActionListener value="#{warehouse}" target="#{warehouseListBean.warehouseSelected}"/>
+            </p:commandButton>
+        </p:column>
+    </p:dataTable>
+
 			</h:form>
 		</ui:define>
 	</ui:composition>
