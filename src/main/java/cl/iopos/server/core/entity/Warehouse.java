@@ -3,6 +3,7 @@ package cl.iopos.server.core.entity;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,35 +30,11 @@ public class Warehouse implements Serializable {
 	@Column(name = "reference_number", nullable = false, length = 40)
 	private String referenceNumber;
 	
-	@Column(name = "contact", nullable = false, length = 40)
-	private String contact;
-	
-	@Column(name = "telephone_number", nullable = false, length = 40)
-	private String telephoneNumber;
-	
-	@Column(name = "movil_number", nullable = false, length = 40)
-	private String movilNumber;
-	
-	@Column(name = "email", nullable = false, length = 40)
-	private String email;
+	@Embedded
+	private Address address;
 
-	@Column(name = "address1", nullable = true, length = 45)
-	private String address1;
-
-	@Column(name = "address2", nullable = true, length = 45)
-	private String address2;
-
-	@Column(name = "city", nullable = true, length = 45)
-	private String city;
-
-	@Column(name = "postal_code", nullable = true, length = 45)
-	private String postal;
-
-	@Column(name = "state", nullable = true, length = 45)
-	private String state;
-
-	@Column(name = "country", nullable = true, length = 45)
-	private String country;
+	@Embedded
+	private Contact contact;
 
 	@Column(name = "active", nullable = false, columnDefinition="BIT")
 	private Boolean active;
@@ -94,84 +71,20 @@ public class Warehouse implements Serializable {
 		this.referenceNumber = referenceNumber;
 	}
 
-	public String getContact() {
+	public Contact getContact() {
 		return contact;
 	}
 
-	public void setContact(String contact) {
+	public void setContact(Contact contact) {
 		this.contact = contact;
 	}
 
-	public String getTelephoneNumber() {
-		return telephoneNumber;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setTelephoneNumber(String telephoneNumber) {
-		this.telephoneNumber = telephoneNumber;
-	}
-
-	public String getMovilNumber() {
-		return movilNumber;
-	}
-
-	public void setMovilNumber(String movilNumber) {
-		this.movilNumber = movilNumber;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getAddress1() {
-		return address1;
-	}
-
-	public void setAddress1(String address1) {
-		this.address1 = address1;
-	}
-
-	public String getAddress2() {
-		return address2;
-	}
-
-	public void setAddress2(String address2) {
-		this.address2 = address2;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getPostal() {
-		return postal;
-	}
-
-	public void setPostal(String postal) {
-		this.postal = postal;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
+	public void setAddress1(Address address) {
+		this.address = address;
 	}
 
 	public Boolean getActive() {

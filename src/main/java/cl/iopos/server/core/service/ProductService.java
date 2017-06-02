@@ -7,15 +7,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import cl.iopos.server.core.dto.AddressDTO;
 import cl.iopos.server.core.dto.CategoryDTO;
 import cl.iopos.server.core.dto.CompanyDTO;
+import cl.iopos.server.core.dto.ContactDTO;
 import cl.iopos.server.core.dto.EmployeeDTO;
 import cl.iopos.server.core.dto.ProductDTO;
 import cl.iopos.server.core.dto.StationDTO;
 import cl.iopos.server.core.dto.SupplierDTO;
 import cl.iopos.server.core.dto.WarehouseDTO;
+import cl.iopos.server.core.entity.Address;
 import cl.iopos.server.core.entity.Category;
 import cl.iopos.server.core.entity.Company;
+import cl.iopos.server.core.entity.Contact;
 import cl.iopos.server.core.entity.Employee;
 import cl.iopos.server.core.entity.Product;
 import cl.iopos.server.core.entity.Station;
@@ -282,20 +286,37 @@ public class ProductService implements Serializable {
 				dto.setCompanyId(warehouse.getCompanyId());
 				dto.setDescription(warehouse.getDescription());
 				dto.setReferenceNumber(warehouse.getReferenceNumber());
-				dto.setContact(warehouse.getContact());
-				dto.setTelephoneNumber(warehouse.getTelephoneNumber());
-				dto.setMovilNumber(warehouse.getMovilNumber());
-				dto.setEmail(warehouse.getEmail());
-				dto.setAddress1(warehouse.getAddress1());
-				dto.setAddress2(warehouse.getAddress2());
-				dto.setCity(warehouse.getCity());
-				dto.setPostal(warehouse.getPostal());
-				dto.setState(warehouse.getState());
-				dto.setCountry(warehouse.getCountry());
 				dto.setActive(warehouse.getActive());
+				
+				if (warehouse.getContact() != null) {
+					ContactDTO contactDTO = new ContactDTO();
+					contactDTO.setFirstName(warehouse.getContact().getFirstName());
+					contactDTO.setLastName(warehouse.getContact().getLastName());
+					contactDTO.setTelephoneNumber(warehouse.getContact().getTelephoneNumber());
+					contactDTO.setMobileNumber(warehouse.getContact().getMobileNumber());
+					contactDTO.setEmail(warehouse.getContact().getEmail());
+					dto.setContact(contactDTO);
+				} else {
+					dto.setContact(new ContactDTO());
+				}
+				
+				if (warehouse.getAddress() != null) {
+					AddressDTO addressDTO = new AddressDTO();
+					addressDTO.setStreetLine1(warehouse.getAddress().getStreetLine1());
+					addressDTO.setStreetLine2(warehouse.getAddress().getStreetLine2());
+					addressDTO.setCity(warehouse.getAddress().getCity());
+					addressDTO.setZipCode(warehouse.getAddress().getZipCode());
+					addressDTO.setState(warehouse.getAddress().getState());
+					addressDTO.setCountry(warehouse.getAddress().getCountry());
+					dto.setAddress(addressDTO);					
+				} else {
+					dto.setAddress(new AddressDTO());
+				}
+				
 				out.add(dto);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new ServiceException("Error en warehouseFindByCompany");
 		}
 		return out;
@@ -311,6 +332,25 @@ public class ProductService implements Serializable {
 				dto.setId(supplier.getId());
 				dto.setCompanyId(supplier.getCompanyId());
 				dto.setName(supplier.getName());
+				dto.setActive(supplier.getActive());
+				
+				AddressDTO addressDTO = new AddressDTO();
+				addressDTO.setStreetLine1(supplier.getAddress().getStreetLine1());
+				addressDTO.setStreetLine2(supplier.getAddress().getStreetLine2());
+				addressDTO.setCity(supplier.getAddress().getCity());
+				addressDTO.setZipCode(supplier.getAddress().getZipCode());
+				addressDTO.setState(supplier.getAddress().getState());
+				addressDTO.setCountry(supplier.getAddress().getCountry());
+				dto.setAddress(addressDTO);
+				
+				ContactDTO contactDTO = new ContactDTO();
+				contactDTO.setFirstName(supplier.getContact().getFirstName());
+				contactDTO.setLastName(supplier.getContact().getLastName());
+				contactDTO.setTelephoneNumber(supplier.getContact().getTelephoneNumber());
+				contactDTO.setMobileNumber(supplier.getContact().getMobileNumber());
+				contactDTO.setEmail(supplier.getContact().getEmail());
+				dto.setContact(contactDTO);
+				
 				out.add(dto);
 			}
 		} catch (Exception e) {
@@ -504,19 +544,62 @@ public class ProductService implements Serializable {
 			dto.setCompanyId(warehouse.getCompanyId());
 			dto.setDescription(warehouse.getDescription());
 			dto.setReferenceNumber(warehouse.getReferenceNumber());
-			dto.setContact(warehouse.getContact());
-			dto.setTelephoneNumber(warehouse.getTelephoneNumber());
-			dto.setMovilNumber(warehouse.getMovilNumber());
-			dto.setEmail(warehouse.getEmail());
-			dto.setAddress1(warehouse.getAddress1());
-			dto.setAddress2(warehouse.getAddress2());
-			dto.setCity(warehouse.getCity());
-			dto.setPostal(warehouse.getPostal());
-			dto.setState(warehouse.getState());
-			dto.setCountry(warehouse.getCountry());
 			dto.setActive(warehouse.getActive());			
+			
+			ContactDTO contactDTO = new ContactDTO();
+			contactDTO.setFirstName(warehouse.getContact().getFirstName());
+			contactDTO.setLastName(warehouse.getContact().getLastName());
+			contactDTO.setTelephoneNumber(warehouse.getContact().getTelephoneNumber());
+			contactDTO.setMobileNumber(warehouse.getContact().getMobileNumber());
+			contactDTO.setEmail(warehouse.getContact().getEmail());
+			dto.setContact(contactDTO);
+			
+			AddressDTO addressDTO = new AddressDTO();
+			addressDTO.setStreetLine1(warehouse.getAddress().getStreetLine1());
+			addressDTO.setStreetLine2(warehouse.getAddress().getStreetLine2());
+			addressDTO.setCity(warehouse.getAddress().getCity());
+			addressDTO.setZipCode(warehouse.getAddress().getZipCode());
+			addressDTO.setState(warehouse.getAddress().getState());
+			addressDTO.setCountry(warehouse.getAddress().getCountry());
+			dto.setAddress(addressDTO);
+
 		} catch (Exception e) {
 			throw new ServiceException("Error en warehouseFindById");
+		}
+		return dto;
+	}
+	
+	public SupplierDTO supplierFindbyId(Integer id) throws ServiceException
+	{
+		SupplierDTO dto = new SupplierDTO();
+		
+		try {
+			Supplier supplier = this.supplierRepository.findOne(id);
+			
+			dto.setId(supplier.getId());
+			dto.setCompanyId(supplier.getCompanyId());
+			dto.setName(supplier.getName());
+			dto.setActive(supplier.getActive());
+			
+			AddressDTO addressDTO = new AddressDTO();
+			addressDTO.setStreetLine1(supplier.getAddress().getStreetLine1());
+			addressDTO.setStreetLine2(supplier.getAddress().getStreetLine2());
+			addressDTO.setCity(supplier.getAddress().getCity());
+			addressDTO.setZipCode(supplier.getAddress().getZipCode());
+			addressDTO.setState(supplier.getAddress().getState());
+			addressDTO.setCountry(supplier.getAddress().getCountry());
+			dto.setAddress(addressDTO);
+			
+			ContactDTO contactDTO = new ContactDTO();
+			contactDTO.setFirstName(supplier.getContact().getFirstName());
+			contactDTO.setLastName(supplier.getContact().getLastName());
+			contactDTO.setTelephoneNumber(supplier.getContact().getTelephoneNumber());
+			contactDTO.setMobileNumber(supplier.getContact().getMobileNumber());
+			contactDTO.setEmail(supplier.getContact().getEmail());
+			dto.setContact(contactDTO);
+
+		} catch (Exception e) {
+			throw new ServiceException("Error en supplierFindbyId");
 		}
 		return dto;
 	}
@@ -637,21 +720,63 @@ public class ProductService implements Serializable {
 			warehouse.setCompanyId(dto.getCompanyId());
 			warehouse.setDescription(dto.getDescription());
 			warehouse.setReferenceNumber(dto.getReferenceNumber());
-			warehouse.setContact(dto.getContact());
-			warehouse.setTelephoneNumber(dto.getTelephoneNumber());
-			warehouse.setMovilNumber(dto.getMovilNumber());
-			warehouse.setEmail(dto.getEmail());
-			warehouse.setAddress1(dto.getAddress1());
-			warehouse.setAddress2(dto.getAddress2());
-			warehouse.setCity(dto.getCity());
-			warehouse.setPostal(dto.getPostal());
-			warehouse.setState(dto.getState());
-			warehouse.setCountry(dto.getCountry());
 			warehouse.setActive(dto.getActive());
+			
+			Address address = new Address();
+			address.setStreetLine1(dto.getAddress().getStreetLine1());
+			address.setStreetLine2(dto.getAddress().getStreetLine2());
+			address.setCity(dto.getAddress().getCity());
+			address.setZipCode(dto.getAddress().getZipCode());
+			address.setState(dto.getAddress().getState());
+			address.setCountry(dto.getAddress().getCountry());
+			warehouse.setAddress1(address);
+			
+			Contact contact = new Contact();
+			contact.setFirstName(dto.getContact().getFirstName());
+			contact.setLastName(dto.getContact().getLastName());
+			contact.setTelephoneNumber(dto.getContact().getTelephoneNumber());
+			contact.setMobileNumber(dto.getContact().getMobileNumber());
+			contact.setEmail(dto.getContact().getEmail());
+			warehouse.setContact(contact);
+			
 			this.warehouseRepository.save(warehouse);
 			dto.setId(warehouse.getId());
 		} catch (Exception e) {
 			throw new ServiceException("Error en createWarehouse");
+		}
+		return dto;
+	}
+	
+	public SupplierDTO createSupplier(SupplierDTO dto) throws ServiceException
+	{
+		try {
+			Supplier supplier = new Supplier();
+			supplier.setCompanyId(dto.getCompanyId());
+			supplier.setName(dto.getName());
+			supplier.setAccountNumber(dto.getAccountNumber());
+			supplier.setActive(dto.getActive());
+			
+			Address address = new Address();
+			address.setStreetLine1(dto.getAddress().getStreetLine1());
+			address.setStreetLine2(dto.getAddress().getStreetLine2());
+			address.setCity(dto.getAddress().getCity());
+			address.setZipCode(dto.getAddress().getZipCode());
+			address.setState(dto.getAddress().getState());
+			address.setCountry(dto.getAddress().getCountry());
+			supplier.setAddress(address);
+			
+			Contact contact = new Contact();
+			contact.setFirstName(dto.getContact().getFirstName());
+			contact.setLastName(dto.getContact().getLastName());
+			contact.setTelephoneNumber(dto.getContact().getTelephoneNumber());
+			contact.setMobileNumber(dto.getContact().getMobileNumber());
+			contact.setEmail(dto.getContact().getEmail());
+			supplier.setContact(contact);
+			
+			this.supplierRepository.save(supplier);
+			dto.setId(supplier.getId());
+		} catch (Exception e) {
+			throw new ServiceException("Error en createSupplier");
 		}
 		return dto;
 	}
@@ -853,20 +978,61 @@ public class ProductService implements Serializable {
 			warehouse.setCompanyId(dto.getCompanyId());
 			warehouse.setDescription(dto.getDescription());
 			warehouse.setReferenceNumber(dto.getReferenceNumber());
-			warehouse.setContact(dto.getContact());
-			warehouse.setTelephoneNumber(dto.getTelephoneNumber());
-			warehouse.setMovilNumber(dto.getMovilNumber());
-			warehouse.setEmail(dto.getEmail());
-			warehouse.setAddress1(dto.getAddress1());
-			warehouse.setAddress2(dto.getAddress2());
-			warehouse.setCity(dto.getCity());
-			warehouse.setPostal(dto.getPostal());
-			warehouse.setState(dto.getState());
-			warehouse.setCountry(dto.getCountry());
 			warehouse.setActive(dto.getActive());
+			
+			Address address = new Address();
+			address.setStreetLine1(dto.getAddress().getStreetLine1());
+			address.setStreetLine2(dto.getAddress().getStreetLine2());
+			address.setCity(dto.getAddress().getCity());
+			address.setZipCode(dto.getAddress().getZipCode());
+			address.setState(dto.getAddress().getState());
+			address.setCountry(dto.getAddress().getCountry());
+			warehouse.setAddress1(address);
+			
+			Contact contact = new Contact();
+			contact.setFirstName(dto.getContact().getFirstName());
+			contact.setLastName(dto.getContact().getLastName());
+			contact.setTelephoneNumber(dto.getContact().getTelephoneNumber());
+			contact.setMobileNumber(dto.getContact().getMobileNumber());
+			contact.setEmail(dto.getContact().getEmail());
+			warehouse.setContact(contact);
+			
 			this.warehouseRepository.save(warehouse);
 		} catch (Exception e) {
 			throw new ServiceException("Error en updateWarehouse");
+		}
+		return dto;
+	}
+	
+	public SupplierDTO updateSupplier(SupplierDTO dto) throws ServiceException
+	{
+		try {
+			Supplier supplier = this.supplierRepository.findOne(dto.getId());
+			supplier.setCompanyId(dto.getCompanyId());
+			supplier.setName(dto.getName());
+			supplier.setAccountNumber(dto.getAccountNumber());
+			supplier.setActive(dto.getActive());
+			
+			Address address = new Address();
+			address.setStreetLine1(dto.getAddress().getStreetLine1());
+			address.setStreetLine2(dto.getAddress().getStreetLine2());
+			address.setCity(dto.getAddress().getCity());
+			address.setZipCode(dto.getAddress().getZipCode());
+			address.setState(dto.getAddress().getState());
+			address.setCountry(dto.getAddress().getCountry());
+			supplier.setAddress(address);
+			
+			Contact contact = new Contact();
+			contact.setFirstName(dto.getContact().getFirstName());
+			contact.setLastName(dto.getContact().getLastName());
+			contact.setTelephoneNumber(dto.getContact().getTelephoneNumber());
+			contact.setMobileNumber(dto.getContact().getMobileNumber());
+			contact.setEmail(dto.getContact().getEmail());
+			supplier.setContact(contact);
+			
+			this.supplierRepository.save(supplier);
+		} catch (Exception e) {
+			throw new ServiceException("Error en updateSupplier");
 		}
 		return dto;
 	}

@@ -11,18 +11,12 @@ public class SupplierDTO implements Serializable {
 	private Integer companyId;
 
 	private String name;
+	
+	private String accountNumber;
 
 	private AddressDTO address;
 	
-	private String contact;
-	
-	private String telephoneNumber;
-	
-	private String movilNumber;
-	
-	private String email;
-	
-	private String accountNumber;
+	private ContactDTO contact;
 	
 	private Boolean active;
 
@@ -50,6 +44,14 @@ public class SupplierDTO implements Serializable {
 		this.name = name;
 	}
 
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
 	public AddressDTO getAddress() {
 		return address;
 	}
@@ -58,44 +60,12 @@ public class SupplierDTO implements Serializable {
 		this.address = address;
 	}
 
-	public String getContact() {
+	public ContactDTO getContact() {
 		return contact;
 	}
 
-	public void setContact(String contact) {
+	public void setContact(ContactDTO contact) {
 		this.contact = contact;
-	}
-
-	public String getTelephoneNumber() {
-		return telephoneNumber;
-	}
-
-	public void setTelephoneNumber(String telephoneNumber) {
-		this.telephoneNumber = telephoneNumber;
-	}
-
-	public String getMovilNumber() {
-		return movilNumber;
-	}
-
-	public void setMovilNumber(String movilNumber) {
-		this.movilNumber = movilNumber;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getAccountNumber() {
-		return accountNumber;
-	}
-
-	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
 	}
 
 	public Boolean getActive() {

@@ -97,5 +97,11 @@ public class WarehouseEditBean implements Serializable {
 	        context.addMessage(null, new FacesMessage("Error",  e.getMessage()) );
 		}
 	}
+	
+	public String actionCancel() {
+		logger.debug("execute {}",Thread.currentThread().getStackTrace()[1].getMethodName());
+		System.out.println("execute " + Thread.currentThread().getStackTrace()[1].getMethodName());
+		return "actionWarehouseList";
+	}
 
 }

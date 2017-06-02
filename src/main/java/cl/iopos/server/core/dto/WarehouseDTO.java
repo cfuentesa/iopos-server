@@ -14,28 +14,17 @@ public class WarehouseDTO implements Serializable {
 	
 	private String referenceNumber;
 	
-	private String contact;
-	
-	private String telephoneNumber;
-	
-	private String movilNumber;
-	
-	private String email;
+	private ContactDTO contact;
 
-	private String address1;
-
-	private String address2;
-
-	private String city;
-
-	private String postal;
-
-	private String state;
-
-	private String country;
+	private AddressDTO address;
 
 	private Boolean active;
 
+	public WarehouseDTO() {
+		this.contact = new ContactDTO();
+		this.address = new AddressDTO();
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -68,84 +57,20 @@ public class WarehouseDTO implements Serializable {
 		this.referenceNumber = referenceNumber;
 	}
 
-	public String getContact() {
+	public ContactDTO getContact() {
 		return contact;
 	}
 
-	public void setContact(String contact) {
+	public void setContact(ContactDTO contact) {
 		this.contact = contact;
 	}
 
-	public String getTelephoneNumber() {
-		return telephoneNumber;
+	public AddressDTO getAddress() {
+		return address;
 	}
 
-	public void setTelephoneNumber(String telephoneNumber) {
-		this.telephoneNumber = telephoneNumber;
-	}
-
-	public String getMovilNumber() {
-		return movilNumber;
-	}
-
-	public void setMovilNumber(String movilNumber) {
-		this.movilNumber = movilNumber;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getAddress1() {
-		return address1;
-	}
-
-	public void setAddress1(String address1) {
-		this.address1 = address1;
-	}
-
-	public String getAddress2() {
-		return address2;
-	}
-
-	public void setAddress2(String address2) {
-		this.address2 = address2;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getPostal() {
-		return postal;
-	}
-
-	public void setPostal(String postal) {
-		this.postal = postal;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
+	public void setAddress(AddressDTO address) {
+		this.address = address;
 	}
 
 	public Boolean getActive() {

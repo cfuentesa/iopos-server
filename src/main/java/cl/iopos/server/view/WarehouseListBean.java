@@ -56,11 +56,14 @@ public class WarehouseListBean implements Serializable {
 	
 	@PostConstruct
 	public void init(){
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("stationId");
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("warehouseId");
 		try {
 			this.warehouses = this.productService.warehouseFindByCompany(1);
+			for(WarehouseDTO dto : this.warehouses) {
+				System.out.println("Desc" + dto.getDescription());;
+			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 	

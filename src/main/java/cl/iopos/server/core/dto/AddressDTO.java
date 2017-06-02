@@ -1,6 +1,10 @@
 package cl.iopos.server.core.dto;
 
-public class AddressDTO {
+import java.io.Serializable;
+
+public class AddressDTO implements Serializable {
+
+	private static final long serialVersionUID = 3787989773653152963L;
 
 	private String streetLine1;
 
