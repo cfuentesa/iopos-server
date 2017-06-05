@@ -12,7 +12,7 @@
 			<h:form id="warehouseForm">
 
 <p:growl id="growl" showDetail="true" sticky="false" />
-<b:panel title="Warehouse Setup" collapsible="false">
+<b:panel title="#{warehouseEditBean.isAdd? msg.warehouse_add:msg.warehouse_edit}" collapsible="false" look="primary">
 	
     <p:panelGrid id="gridDescription" columns="3" cellpadding="5">
 		<p:outputLabel for="description" value="#{msg.warehouse_description} :" style="width:200px"/>
@@ -22,39 +22,42 @@
 		<p:outputLabel for="reference" value="#{msg.warehouse_reference_number} :" />
         <p:inputText id="reference" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.referenceNumber}"/>
         <p:message for="reference" />
+
+		<p:outputLabel for="creationTime" value="#{msg.creation_time} :" rendered="#{!warehouseEditBean.isAdd}"/>
+        <p:inputText id="creationTime" required="false" maxlength="20" value="#{warehouseEditBean.warehouse.creationTimeStr}" rendered="#{!warehouseEditBean.isAdd}" readonly="true"/>
         
 	</p:panelGrid>
 
 	<p:spacer/>
 	
-	<b:panel title="#{msg.contact}" collapsible="true">
+	<b:panel title="#{msg.contact}" collapsible="true" look="primary">
 	    <p:panelGrid id="gridContact" columns="3" cellpadding="5">
 			<p:outputLabel for="firstName" value="#{msg.contact_firstname} :" style="width:200px"/>
-	        <p:inputText id="firstName" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.contact.firstName}"/>
+	        <p:inputText id="firstName" required="false" maxlength="20" value="#{warehouseEditBean.warehouse.contact.firstName}"/>
 	        <p:message for="firstName" />
 
 			<p:outputLabel for="lastName" value="#{msg.contact_lastname} :" style="width:200px"/>
-	        <p:inputText id="lastName" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.contact.lastName}"/>
+	        <p:inputText id="lastName" required="false" maxlength="20" value="#{warehouseEditBean.warehouse.contact.lastName}"/>
 	        <p:message for="lastName" />
 	
 			<p:outputLabel for="telephone" value="#{msg.contact_telephone} :" />
-	        <p:inputText id="telephone" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.contact.telephoneNumber}"/>
+	        <p:inputText id="telephone" required="false" maxlength="20" value="#{warehouseEditBean.warehouse.contact.telephoneNumber}"/>
 	        <p:message for="telephone" />
 	
 			<p:outputLabel for="mobile" value="#{msg.contact_mobile} :" />
-	        <p:inputText id="mobile" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.contact.mobileNumber}"/>
+	        <p:inputText id="mobile" required="false" maxlength="20" value="#{warehouseEditBean.warehouse.contact.mobileNumber}"/>
 	        <p:message for="mobile" />
 	
 			<p:outputLabel for="email" value="#{msg.contact_email} :" />
-	        <p:inputText id="email" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.contact.email}"/>
+	        <p:inputText id="email" required="false" maxlength="20" value="#{warehouseEditBean.warehouse.contact.email}"/>
 	        <p:message for="email" />
         </p:panelGrid>
 	</b:panel>
         
-	<b:panel title="#{msg.address}" collapsible="true">
+	<b:panel title="#{msg.address}" collapsible="true" look="primary">
 	    <p:panelGrid id="gridAddress" columns="3" cellpadding="5">
 			<p:outputLabel for="address" value="#{msg.address_street} :" style="width:200px"/>
-	        <p:inputText id="address" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.address.streetLine1}"/>
+	        <p:inputText id="address" required="false" maxlength="20" value="#{warehouseEditBean.warehouse.address.streetLine1}"/>
 	        <p:message for="address" />
 	
 			<p:spacer />
@@ -62,52 +65,60 @@
 	        <p:message for="address2" />
 	        
 			<p:outputLabel for="city" value="#{msg.address_city} :" />
-	        <p:inputText id="city" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.address.city}"/>
+	        <p:inputText id="city" required="false" maxlength="20" value="#{warehouseEditBean.warehouse.address.city}"/>
 	        <p:message for="city" />
 	        
 			<p:outputLabel for="postal" value="#{msg.address_zipcode} :" />
-	        <p:inputText id="postal" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.address.zipCode}"/>
+	        <p:inputText id="postal" required="false" maxlength="20" value="#{warehouseEditBean.warehouse.address.zipCode}"/>
 	        <p:message for="postal" />
 	        
 			<p:outputLabel for="state" value="#{msg.address_state} :" />
-	        <p:inputText id="state" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.address.state}"/>
+	        <p:inputText id="state" required="false" maxlength="20" value="#{warehouseEditBean.warehouse.address.state}"/>
 	        <p:message for="state" />
 	        
 			<p:outputLabel for="country" value="#{msg.address_country} :" />
-	        <p:inputText id="country" required="true" maxlength="20" value="#{warehouseEditBean.warehouse.address.country}"/>
+	        <b:inputText id="country" required="false" maxlength="20" value="#{warehouseEditBean.warehouse.address.country}" render-label="false">
+<f:facet name="prepend">
+            <b:iconAwesome name="key" />
+        </f:facet>
+        	        </b:inputText>
 	        <p:message for="country" />
 		</p:panelGrid>
 	</b:panel>
-	
     
-	<p:commandButton id="btnAdd" 
-		value="#{msg.button_add}" 
-		icon="ui-icon-plusthick" 
-		actionListener="#{warehouseEditBean.actionAdd}"
-		style="width:150px;"
-		rendered="#{warehouseEditBean.isAdd}"
-		validateClient="true"
-		update="gridDescription,gridContact,gridAddress"/> 
+    <p:panelGrid id="gridActions" columns="5" cellpadding="5">
+		<b:commandButton id="btnAdd" 
+			value="#{msg.button_add}" 
+			icon-awesome="fa-plus" 
+			actionListener="#{warehouseEditBean.actionAdd}"
+			style="width:150px;"
+			rendered="#{warehouseEditBean.isAdd}"
+			validateClient="true"
+			update="gridDescription,gridContact,gridAddress,gridActions" 
+			look="primary"/> 
+			
+		<p:spacer height="25px" rendered="#{warehouseEditBean.isAdd}"/>
 		
-	<p:spacer height="25px"/>
+		<b:commandButton id="btnSave" 
+			value="#{msg.button_save}" 
+			icon-awesome="fa-save" 
+			actionListener="#{warehouseEditBean.actionUpdate}"
+			style="width:150px;"
+			rendered="#{!warehouseEditBean.isAdd}"
+			update="gridDescription,growl"
+			look="primary"/>
 	
-	<p:commandButton id="btnEdit" 
-		value="#{msg.button_edit}" 
-		icon="ui-icon-pencil" 
-		actionListener="#{warehouseEditBean.actionUpdate}"
-		style="width:150px;"
-		rendered="#{!warehouseEditBean.isAdd}"
-		update="gridDescription,growl"/>
-
-	<p:spacer height="25px"/>
-	
-	<p:commandButton id="btnCancel" 
-		value="#{msg.button_cancel}" 
-		icon="fa fa-close" 
-		action="#{warehouseEditBean.actionCancel}"
-		style="width:150px;"
-		immediate="true"/>
-
+		<p:spacer height="25px" rendered="#{!warehouseEditBean.isAdd}"/>
+		
+		<b:commandButton id="btnCancel" 
+			value="#{msg.button_cancel}" 
+			icon-awesome="fa-close" 
+			action="#{warehouseEditBean.actionCancel}"
+			style="width:150px;"
+			immediate="true"
+			look="primary"/>
+			
+	</p:panelGrid>
 </b:panel>
 	
 			</h:form>

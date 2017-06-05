@@ -19,7 +19,16 @@ public class SupplierDTO implements Serializable {
 	private ContactDTO contact;
 	
 	private Boolean active;
+	
+	private Long creationTime;
+	
+	private Long lastUpdateTime;
 
+	public SupplierDTO() {
+		this.contact = new ContactDTO();
+		this.address = new AddressDTO();
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -74,6 +83,22 @@ public class SupplierDTO implements Serializable {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
+
+	public Long getLastUpdateTime() {
+		return lastUpdateTime;
+	}
+
+	public void setLastUpdateTime(Long lastUpdateTime) {
+		this.lastUpdateTime = lastUpdateTime;
 	}
 
 }

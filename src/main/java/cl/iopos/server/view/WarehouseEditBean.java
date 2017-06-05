@@ -12,7 +12,6 @@ import javax.faces.context.FacesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cl.iopos.server.core.dto.EmployeeDTO;
 import cl.iopos.server.core.dto.WarehouseDTO;
 import cl.iopos.server.core.service.ProductService;
 
@@ -77,9 +76,10 @@ public class WarehouseEditBean implements Serializable {
 		logger.debug("execute {}",Thread.currentThread().getStackTrace()[1].getMethodName());
 		try {
 			this.warehouse.setCompanyId(1);
-			this.productService.createWarehouse(this.warehouse);
+			this.warehouse = this.productService.createWarehouse(this.warehouse);
 	        FacesContext context = FacesContext.getCurrentInstance();
 	        context.addMessage(null, new FacesMessage("Successful",  "Your message: " + "hola") );
+	        this.isAdd = false;
 		} catch (Exception e) {
 	        FacesContext context = FacesContext.getCurrentInstance();
 	        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",  e.getMessage()) );

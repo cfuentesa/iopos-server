@@ -33,12 +33,15 @@
             <h:outputText value="#{warehouse.referenceNumber}" />
         </p:column>
         <p:column headerText="#{msg.warehouse_contact}">
-            <h:outputText value="#{warehouse.contact}" />
+            <h:outputText value="#{warehouse.contact.firstName} #{warehouse.contact.lastName}" />
+        </p:column>
+        <p:column headerText="#{msg.warehouse_address}">
+            <h:outputText value="#{warehouse.address.streetLine1} #{warehouse.address.streetLine2}, #{warehouse.address.city}" />
         </p:column>
         <p:column style="width:70px;text-align: center">
-             <p:commandButton icon="ui-icon-search" title="View" action="#{warehouseListBean.actionEdit}">
+             <b:commandButton icon-awesome="fa-search" title="View" action="#{warehouseListBean.actionEdit}" look="primary">
                 <f:setPropertyActionListener value="#{warehouse}" target="#{warehouseListBean.warehouseSelected}"/>
-            </p:commandButton>
+            </b:commandButton>
         </p:column>
     </p:dataTable>
 

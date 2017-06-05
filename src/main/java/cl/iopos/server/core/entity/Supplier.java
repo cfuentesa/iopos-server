@@ -39,6 +39,12 @@ public class Supplier implements Serializable {
 	@Column(name = "active", nullable = false)
 	private Boolean active;
 
+	@Column(name = "creation_time", nullable = false)
+	private Long creationTime;
+	
+	@Column(name = "last_update_time")
+	private Long lastUpdateTime;
+
 	public Integer getId() {
 		return id;
 	}
@@ -93,6 +99,22 @@ public class Supplier implements Serializable {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
+
+	public Long getLastUpdateTime() {
+		return lastUpdateTime;
+	}
+
+	public void setLastUpdateTime(Long lastUpdateTime) {
+		this.lastUpdateTime = lastUpdateTime;
 	}
 	
 }

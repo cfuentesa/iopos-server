@@ -11,6 +11,110 @@
 		<ui:define name="content">
 			<h:form id="supplierForm">
 
+<b:panel title="#{supplierEditBean.isAdd? msg.supplier_add:msg.supplier_edit}" collapsible="false" look="primary">
+    <p:panelGrid id="gridDescription" columns="3" cellpadding="5">
+		<p:outputLabel for="name" value="#{msg.supplier_name} :" style="width:200px"/>
+        <p:inputText id="name" required="true" maxlength="20" value="#{supplierEditBean.supplier.name}"/>
+        <p:message for="name" />
+
+		<p:outputLabel for="accountNumber" value="#{msg.supplier_account_number} :" />
+        <p:inputText id="accountNumber" required="true" maxlength="20" value="#{supplierEditBean.supplier.accountNumber}"/>
+        <p:message for="accountNumber" />
+
+		<p:outputLabel for="creationTime" value="#{msg.creation_time} :" rendered="#{!warehouseEditBean.isAdd}"/>
+        <p:inputText id="creationTime" required="false" maxlength="20" value="#{supplierEditBean.supplier.creationTimeStr}" rendered="#{!warehouseEditBean.isAdd}" readonly="true"/>
+        
+	</p:panelGrid>
+	<p:spacer/>
+	
+	<b:panel title="#{msg.contact}" collapsible="true" look="primary">
+	    <p:panelGrid id="gridContact" columns="3" cellpadding="5">
+			<p:outputLabel for="firstName" value="#{msg.contact_firstname} :" style="width:200px"/>
+	        <p:inputText id="firstName" required="false" maxlength="20" value="#{supplierEditBean.supplier.contact.firstName}"/>
+	        <p:message for="firstName" />
+
+			<p:outputLabel for="lastName" value="#{msg.contact_lastname} :" style="width:200px"/>
+	        <p:inputText id="lastName" required="false" maxlength="20" value="#{supplierEditBean.supplier.contact.lastName}"/>
+	        <p:message for="lastName" />
+	
+			<p:outputLabel for="telephone" value="#{msg.contact_telephone} :" />
+	        <p:inputText id="telephone" required="false" maxlength="20" value="#{supplierEditBean.supplier.contact.telephoneNumber}"/>
+	        <p:message for="telephone" />
+	
+			<p:outputLabel for="mobile" value="#{msg.contact_mobile} :" />
+	        <p:inputText id="mobile" required="false" maxlength="20" value="#{supplierEditBean.supplier.contact.mobileNumber}"/>
+	        <p:message for="mobile" />
+	
+			<p:outputLabel for="email" value="#{msg.contact_email} :" />
+	        <p:inputText id="email" required="false" maxlength="20" value="#{supplierEditBean.supplier.contact.email}"/>
+	        <p:message for="email" />
+        </p:panelGrid>
+	</b:panel>
+        
+	<b:panel title="#{msg.address}" collapsible="true" look="primary">
+	    <p:panelGrid id="gridAddress" columns="3" cellpadding="5">
+			<p:outputLabel for="address" value="#{msg.address_street} :" style="width:200px"/>
+	        <p:inputText id="address" required="false" maxlength="20" value="#{supplierEditBean.supplier.address.streetLine1}"/>
+	        <p:message for="address" />
+	
+			<p:spacer />
+	        <p:inputText id="address2" required="false" maxlength="20" value="#{supplierEditBean.supplier.address.streetLine2}"/>
+	        <p:message for="address2" />
+	        
+			<p:outputLabel for="city" value="#{msg.address_city} :" />
+	        <p:inputText id="city" required="false" maxlength="20" value="#{supplierEditBean.supplier.address.city}"/>
+	        <p:message for="city" />
+	        
+			<p:outputLabel for="postal" value="#{msg.address_zipcode} :" />
+	        <p:inputText id="postal" required="false" maxlength="20" value="#{supplierEditBean.supplier.address.zipCode}"/>
+	        <p:message for="postal" />
+	        
+			<p:outputLabel for="state" value="#{msg.address_state} :" />
+	        <p:inputText id="state" required="false" maxlength="20" value="#{supplierEditBean.supplier.address.state}"/>
+	        <p:message for="state" />
+	        
+			<p:outputLabel for="country" value="#{msg.address_country} :" />
+	        <p:inputText id="country" required="false" maxlength="20" value="#{supplierEditBean.supplier.address.country}" />
+	        <p:message for="country" />
+		</p:panelGrid>
+	</b:panel>
+
+    <p:panelGrid id="gridActions" columns="5" cellpadding="5">
+		<b:commandButton id="btnAdd" 
+			value="#{msg.button_add}" 
+			icon-awesome="fa-plus" 
+			actionListener="#{supplierEditBean.actionAdd}"
+			style="width:150px;"
+			rendered="#{supplierEditBean.isAdd}"
+			validateClient="true"
+			update="gridDescription,gridContact,gridAddress,gridActions" 
+			look="primary"/> 
+			
+		<p:spacer height="25px" rendered="#{supplierEditBean.isAdd}"/>
+		
+		<b:commandButton id="btnSave" 
+			value="#{msg.button_save}" 
+			icon-awesome="fa-save" 
+			actionListener="#{supplierEditBean.actionUpdate}"
+			style="width:150px;"
+			rendered="#{!supplierEditBean.isAdd}"
+			update="gridDescription"
+			look="primary"/>
+	
+		<p:spacer height="25px" rendered="#{!supplierEditBean.isAdd}"/>
+		
+		<b:commandButton id="btnCancel" 
+			value="#{msg.button_cancel}" 
+			icon-awesome="fa-close" 
+			action="#{supplierEditBean.actionCancel}"
+			style="width:150px;"
+			immediate="true"
+			look="primary"/>
+			
+	</p:panelGrid>
+
+</b:panel>
+
 			</h:form>
 		</ui:define>
 	</ui:composition>

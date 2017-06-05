@@ -39,6 +39,12 @@ public class Warehouse implements Serializable {
 	@Column(name = "active", nullable = false, columnDefinition="BIT")
 	private Boolean active;
 
+	@Column(name = "creation_time", nullable = false)
+	private Long creationTime;
+	
+	@Column(name = "last_update_time")
+	private Long lastUpdateTime;
+
 	public Integer getId() {
 		return id;
 	}
@@ -83,7 +89,7 @@ public class Warehouse implements Serializable {
 		return address;
 	}
 
-	public void setAddress1(Address address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 
@@ -93,6 +99,22 @@ public class Warehouse implements Serializable {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
+
+	public Long getLastUpdateTime() {
+		return lastUpdateTime;
+	}
+
+	public void setLastUpdateTime(Long lastUpdateTime) {
+		this.lastUpdateTime = lastUpdateTime;
 	}
 
 }

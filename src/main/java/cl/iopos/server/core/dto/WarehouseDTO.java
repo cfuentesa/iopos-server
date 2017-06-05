@@ -1,6 +1,9 @@
 package cl.iopos.server.core.dto;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class WarehouseDTO implements Serializable {
 	
@@ -19,6 +22,10 @@ public class WarehouseDTO implements Serializable {
 	private AddressDTO address;
 
 	private Boolean active;
+	
+	private Long creationTime;
+	
+	private Long lastUpdateTime;
 
 	public WarehouseDTO() {
 		this.contact = new ContactDTO();
@@ -80,5 +87,29 @@ public class WarehouseDTO implements Serializable {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
+
+	public Long getLastUpdateTime() {
+		return lastUpdateTime;
+	}
+
+	public void setLastUpdateTime(Long lastUpdateTime) {
+		this.lastUpdateTime = lastUpdateTime;
+	}
+	
+	public String getCreationTimeStr() {
+		Date fecha = new Date(this.creationTime * 1000);
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss z");
+		String formatted = format.format(fecha);
+		return formatted;
+	}
+
 
 }
